@@ -1,6 +1,6 @@
 //
 //  ProfileManager.swift
-//  Broke
+// FocusTap
 //
 //  Created by Oz Tamir on 22/08/2024.
 //
@@ -185,7 +185,7 @@ struct Profile: Identifiable, Codable {
     self.appTokens = appTokens
     self.categoryTokens = categoryTokens
     self.icon = icon
-    self.tagPhrase = "BROKE-" + UUID().uuidString.prefix(8).uppercased()
+    self.tagPhrase = "FOCUS-" + UUID().uuidString.prefix(8).uppercased()
     self.requireMatchingTag = requireMatchingTag
   }
 }

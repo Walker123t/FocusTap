@@ -1,0 +1,72 @@
+{
+  "common": {
+    "ok": "OK",
+    "create": "Create",
+    "cancel": "Cancel",
+    "save": "Save",
+    "done": "Done",
+    "delete": "Delete"
+  },
+  "focus": {
+    "tapToBlock": "Tap to block",
+    "tapToUnblock": "Tap to unblock"
+  },
+  "profiles": {
+    "title": "Profiles",
+    "newProfile": "New...",
+    "editHint": "Long press on a profile to edit...",
+    "statsFormat": "A: %d | C: %d",
+    "form": {
+      "addTitle": "Add Profile",
+      "editTitle": "Edit Profile",
+      "sections": {
+        "details": "Profile Details",
+        "name": "Profile Name",
+        "namePrompt": "Enter profile name",
+        "chooseIcon": "Choose Icon",
+        "pickIcon": "Pick an icon",
+        "apps": "App Configuration",
+        "configureApps": "Configure Blocked Apps",
+        "selectApps": "Select Apps",
+        "blockedApps": "Blocked Apps:",
+        "blockedCategories": "Blocked Categories:",
+        "privacyNote": "Broke can't list the names of the apps due to privacy concerns, it is only able to see the amount of apps selected in the configuration screen.",
+        "security": "Security",
+        "requireTag": "Require matching tag to unblock",
+        "requireTagNote": "When enabled, only the tag created for this profile can unblock it",
+        "deleteProfile": "Delete Profile"
+      },
+      "delete": {
+        "title": "Delete Profile",
+        "message": "Are you sure you want to delete this profile?"
+      }
+    }
+  },
+  "alerts": {
+    "wrongTag": {
+      "title": "Wrong Tag Scanned!",
+      "message": "The current profile requires you scan its corresponding tag to unlock it."
+    },
+    "notFocusTag": {
+      "title": "Not a Focus Tag",
+      "message": "You can create a new Focus tag using the + button"
+    },
+    "createTag": {
+      "title": "Create Focus Tag",
+      "message": "Do you want to create a new Focus tag?"
+    },
+    "tagCreation": {
+      "title": "Tag Creation",
+      "successMessage": "Focus tag created successfully!",
+      "failureMessage": "Failed to create Focus tag. Please try again."
+    }
+  },
+  "logs": {
+    "matchingTag": "Matching tag, unblocking",
+    "wrongTag": "Wrong Tag for unblocking!\nPayload: %@",
+    "nonFocusTag": "A Non Focus tag was scanned!\nPayload: %@",
+    "noMatchRequired": "Tag matching not required, unblocking",
+    "switchingProfile": "Switching to profile: %@",
+    "usingCurrentProfile": "No matching profile, using current"
+  }
+}

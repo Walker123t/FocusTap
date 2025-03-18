@@ -1,6 +1,6 @@
 //
 //  EditProfileView.swift
-//  Broke
+// FocusTap
 //
 //  Created by Oz Tamir on 23/08/2024.
 //
@@ -20,7 +20,7 @@ struct ProfileFormView: View {
   @State private var requireMatchingTag: Bool
   let profile: Profile?
   let onDismiss: () -> Void
-  
+
   init(profile: Profile? = nil, profileManager: ProfileManager, onDismiss: @escaping () -> Void) {
     self.profile = profile
     self.profileManager = profileManager
@@ -28,104 +28,110 @@ struct ProfileFormView: View {
     _profileName = State(initialValue: profile?.name ?? "")
     _profileIcon = State(initialValue: profile?.icon ?? "bell.slash")
     _requireMatchingTag = State(initialValue: profile?.requireMatchingTag ?? false)
-    
+
     var selection = FamilyActivitySelection()
     selection.applicationTokens = profile?.appTokens ?? []
     selection.categoryTokens = profile?.categoryTokens ?? []
     _activitySelection = State(initialValue: selection)
   }
-  
+
   var body: some View {
     NavigationView {
       Form {
-        Section(header: Text("Profile Details")) {
+        Section(header: Text(verbatim: String.profiles(.sectionDetails))) {
           VStack(alignment: .leading) {
-            Text("Profile Name")
+            Text(verbatim: String.profiles(.sectionName))
               .font(.caption)
               .foregroundColor(.secondary)
-            TextField("Enter profile name", text: $profileName)
+            TextField(String.profiles(.sectionNamePrompt), text: $profileName)
           }
-          
+
           Button(action: { showSymbolsPicker = true }) {
             HStack {
               Image(systemName: profileIcon)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 40, height: 40)
-              Text("Choose Icon")
+              Text(verbatim: String.profiles(.sectionChooseIcon))
               Spacer()
               Image(systemName: "chevron.right")
                 .foregroundColor(.secondary)
             }
           }
         }
-        
-        Section(header: Text("App Configuration")) {
+
+        Section(header: Text(verbatim: String.profiles(.sectionApps))) {
           Button(action: { showAppSelection = true }) {
-            Text("Configure Blocked Apps")
+            Text(verbatim: String.profiles(.sectionConfigureApps))
           }
-          
+
           VStack(alignment: .leading, spacing: 8) {
             HStack {
-              Text("Blocked Apps:")
+              Text(verbatim: String.profiles(.sectionBlockedApps))
               Spacer()
               Text("\(activitySelection.applicationTokens.count)")
                 .fontWeight(.bold)
             }
             HStack {
-              Text("Blocked Categories:")
+              Text(verbatim: String.profiles(.sectionBlockedCategories))
               Spacer()
               Text("\(activitySelection.categoryTokens.count)")
                 .fontWeight(.bold)
             }
-            Text("Broke can't list the names of the apps due to privacy concerns, it is only able to see the amount of apps selected in the configuration screen.")
+            Text(verbatim: String.profiles(.sectionPrivacyNote))
               .font(.caption)
               .foregroundColor(.secondary)
           }
         }
-        
-        Section(header: Text("Security")) {
-          Toggle("Require matching tag to unblock", isOn: $requireMatchingTag)
-          
+
+        Section(header: Text(verbatim: String.profiles(.sectionSecurity))) {
+          Toggle(String.profiles(.sectionRequireTag), isOn: $requireMatchingTag)
+
           if requireMatchingTag {
-            Text("When enabled, only the tag created for this profile can unblock it")
+            Text(verbatim: String.profiles(.sectionRequireTagNote))
               .font(.caption)
               .foregroundColor(.secondary)
           }
         }
-        
+
         if profile != nil {
           Section {
             Button(action: { showDeleteConfirmation = true }) {
-              Text("Delete Profile")
+              Text(verbatim: String.profiles(.sectionDeleteProfile))
                 .foregroundColor(.red)
             }
           }
         }
       }
-      .navigationTitle(profile == nil ? "Add Profile" : "Edit Profile")
+      .navigationTitle(profile == nil ?
+                       String.profiles(.formAddTitle) :
+                        String.profiles(.formEditTitle))
       .navigationBarItems(
-        leading: Button("Cancel", action: onDismiss),
-        trailing: Button("Save", action: handleSave)
+        leading: Button(String.common(.cancel), action: onDismiss),
+        trailing: Button(String.common(.save), action: handleSave)
           .disabled(profileName.isEmpty)
       )
       .sheet(isPresented: $showSymbolsPicker) {
-        SymbolsPicker(selection: $profileIcon, title: "Pick an icon", autoDismiss: true)
+        SymbolsPicker(
+          selection: $profileIcon,
+          title: String.profiles(.sectionPickIcon),
+          autoDismiss: true
+        )
       }
       .sheet(isPresented: $showAppSelection) {
         NavigationView {
           FamilyActivityPicker(selection: $activitySelection)
-            .navigationTitle("Select Apps")
-            .navigationBarItems(trailing: Button("Done") {
+            .navigationTitle(String.profiles(.sectionSelectApps))
+            .navigationBarItems(trailing: Button(String.common(.done)) {
               showAppSelection = false
             })
         }
       }
       .alert(isPresented: $showDeleteConfirmation) {
         Alert(
-          title: Text("Delete Profile"),
-          message: Text("Are you sure you want to delete this profile?"),
-          primaryButton: .destructive(Text("Delete")) {
+          title: Text(verbatim: String.profiles(.deleteTitle)),
+          message: Text(verbatim: String.profiles(.deleteMessage)),
+          primaryButton: .destructive(Text(verbatim: String.common(.delete))) {
             if let profile = profile {
               profileManager.deleteProfile(withId: profile.id)
             }
@@ -136,7 +142,7 @@ struct ProfileFormView: View {
       }
     }
   }
-  
+
   private func handleSave() {
     if let existingProfile = profile {
       profileManager.updateProfile(

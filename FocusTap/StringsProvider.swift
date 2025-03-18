@@ -49,26 +49,32 @@ protocol StringPath {
 // MARK: - String Path Enums
 enum CommonStrings: StringPath {
   case ok
+  case done
+  case save
   case create
   case cancel
+  case delete
 
   var rawValue: [String] {
     switch self {
     case .ok: return ["common", "ok"]
+    case .done: return ["common", "done"]
+    case .save: return ["common", "save"]
     case .create: return ["common", "create"]
     case .cancel: return ["common", "cancel"]
+    case .delete: return ["common", "delete"]
     }
   }
 }
 
-enum BrokerStrings: StringPath {
+enum FocusStrings: StringPath {
   case tapToBlock
   case tapToUnblock
 
   var rawValue: [String] {
     switch self {
-    case .tapToBlock: return ["broker", "tapToBlock"]
-    case .tapToUnblock: return ["broker", "tapToUnblock"]
+    case .tapToBlock: return ["focus", "tapToBlock"]
+    case .tapToUnblock: return ["focus", "tapToUnblock"]
     }
   }
 }
@@ -78,6 +84,25 @@ enum ProfileStrings: StringPath {
   case newProfile
   case editHint
   case statsFormat
+  case formAddTitle
+  case formEditTitle
+  case sectionDetails
+  case sectionName
+  case sectionNamePrompt
+  case sectionChooseIcon
+  case sectionPickIcon
+  case sectionApps
+  case sectionConfigureApps
+  case sectionSelectApps
+  case sectionBlockedApps
+  case sectionBlockedCategories
+  case sectionPrivacyNote
+  case sectionSecurity
+  case sectionRequireTag
+  case sectionRequireTagNote
+  case sectionDeleteProfile
+  case deleteTitle
+  case deleteMessage
 
   var rawValue: [String] {
     switch self {
@@ -85,6 +110,25 @@ enum ProfileStrings: StringPath {
     case .newProfile: return ["profiles", "newProfile"]
     case .editHint: return ["profiles", "editHint"]
     case .statsFormat: return ["profiles", "statsFormat"]
+    case .formAddTitle: return ["profiles", "form", "addTitle"]
+    case .formEditTitle: return ["profiles", "form", "editTitle"]
+    case .sectionDetails: return ["profiles", "form", "sections", "details"]
+    case .sectionName: return ["profiles", "form", "sections", "name"]
+    case .sectionNamePrompt: return ["profiles", "form", "sections", "namePrompt"]
+    case .sectionChooseIcon: return ["profiles", "form", "sections", "chooseIcon"]
+    case .sectionPickIcon: return ["profiles", "form", "sections", "pickIcon"]
+    case .sectionApps: return ["profiles", "form", "sections", "apps"]
+    case .sectionConfigureApps: return ["profiles", "form", "sections", "configureApps"]
+    case .sectionSelectApps: return ["profiles", "form", "sections", "selectApps"]
+    case .sectionBlockedApps: return ["profiles", "form", "sections", "blockedApps"]
+    case .sectionBlockedCategories: return ["profiles", "form", "sections", "blockedCategories"]
+    case .sectionPrivacyNote: return ["profiles", "form", "sections", "privacyNote"]
+    case .sectionSecurity: return ["profiles", "form", "sections", "security"]
+    case .sectionRequireTag: return ["profiles", "form", "sections", "requireTag"]
+    case .sectionRequireTagNote: return ["profiles", "form", "sections", "requireTagNote"]
+    case .sectionDeleteProfile: return ["profiles", "form", "sections", "deleteProfile"]
+    case .deleteTitle: return ["profiles", "form", "delete", "title"]
+    case .deleteMessage: return ["profiles", "form", "delete", "message"]
     }
   }
 }
@@ -92,8 +136,8 @@ enum ProfileStrings: StringPath {
 enum AlertStrings: StringPath {
   case wrongTagTitle
   case wrongTagMessage
-  case notBrokerTagTitle
-  case notBrokerTagMessage
+  case notFocusTagTitle
+  case notFocusTagMessage
   case createTagTitle
   case createTagMessage
   case tagCreationTitle
@@ -104,8 +148,8 @@ enum AlertStrings: StringPath {
     switch self {
     case .wrongTagTitle: return ["alerts", "wrongTag", "title"]
     case .wrongTagMessage: return ["alerts", "wrongTag", "message"]
-    case .notBrokerTagTitle: return ["alerts", "notBrokerTag", "title"]
-    case .notBrokerTagMessage: return ["alerts", "notBrokerTag", "message"]
+    case .notFocusTagTitle: return ["alerts", "notFocusTag", "title"]
+    case .notFocusTagMessage: return ["alerts", "notFocusTag", "message"]
     case .createTagTitle: return ["alerts", "createTag", "title"]
     case .createTagMessage: return ["alerts", "createTag", "message"]
     case .tagCreationTitle: return ["alerts", "tagCreation", "title"]
@@ -118,7 +162,7 @@ enum AlertStrings: StringPath {
 enum LogStrings: StringPath {
   case matchingTag
   case wrongTag
-  case nonBrokeTag
+  case nonFocusTag
   case noMatchRequired
   case switchingProfile
   case usingCurrentProfile
@@ -127,7 +171,7 @@ enum LogStrings: StringPath {
     switch self {
     case .matchingTag: return ["logs", "matchingTag"]
     case .wrongTag: return ["logs", "wrongTag"]
-    case .nonBrokeTag: return ["logs", "nonBrokeTag"]
+    case .nonFocusTag: return ["logs", "nonFocusTag"]
     case .noMatchRequired: return ["logs", "noMatchRequired"]
     case .switchingProfile: return ["logs", "switchingProfile"]
     case .usingCurrentProfile: return ["logs", "usingCurrentProfile"]
@@ -141,7 +185,7 @@ extension String {
     StringsProvider.shared.string(for: path)
   }
 
-  static func broker(_ path: BrokerStrings) -> String {
+  static func focus(_ path: FocusStrings) -> String {
     StringsProvider.shared.string(for: path)
   }
 

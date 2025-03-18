@@ -1,6 +1,6 @@
 //
-//  BrockerView.swift
-//  Broke
+//  FocusView.swift
+// FocusTap
 //
 //  Created by Oz Tamir on 22/08/2024.
 //
@@ -11,7 +11,7 @@ import SFSymbolsPicker
 import FamilyControls
 import ManagedSettings
 
-struct BrokerView: View {
+struct FocusView: View {
   // MARK: - Environment
   @EnvironmentObject private var appBlocker: AppBlocker
   @EnvironmentObject private var profileManager: ProfileManager
@@ -23,14 +23,14 @@ struct BrokerView: View {
   // MARK: - Alert Type
   private enum AlertType: Identifiable {
     case wrongTag
-    case notBrokerTag
+    case nonFocusTag
     case createTag
     case tagCreationResult(success: Bool)
 
     var id: Int {
       switch self {
       case .wrongTag: return 0
-      case .notBrokerTag: return 1
+      case .nonFocusTag: return 1
       case .createTag: return 2
       case .tagCreationResult: return 3
       }
@@ -124,17 +124,17 @@ struct BrokerView: View {
         message: Text(verbatim: .alerts(.wrongTagMessage)),
         dismissButton: .default(Text(verbatim: .common(.ok)))
       )
-    case .notBrokerTag:
+    case .nonFocusTag:
       return Alert(
-        title: Text(verbatim: .alerts(.notBrokerTagTitle)),
-        message: Text(verbatim: .alerts(.notBrokerTagMessage)),
+        title: Text(verbatim: .alerts(.notFocusTagTitle)),
+        message: Text(verbatim: .alerts(.notFocusTagMessage)),
         dismissButton: .default(Text(verbatim: .common(.ok)))
       )
     case .createTag:
       return Alert(
         title: Text(verbatim: .alerts(.createTagTitle)),
         message: Text(verbatim: .alerts(.createTagMessage)),
-        primaryButton: .default(Text(verbatim: .common(.create))) { createBrokerTag() },
+        primaryButton: .default(Text(verbatim: .common(.create))) { createFocusTag() },
         secondaryButton: .cancel(Text(verbatim: .common(.cancel)))
       )
     case .tagCreationResult(let success):
@@ -167,12 +167,12 @@ struct BrokerView: View {
       if payload == currentProfile.tagPhrase {
         NSLog(.logs(.matchingTag))
         appBlocker.toggleBlocking(for: currentProfile)
-      } else if String(payload.prefix(6)) == "BROKE-" {
+      } else if String(payload.prefix(6)) == "FOCUS-" {
         alertType = .wrongTag
         NSLog(.logs(.wrongTag), payload)
       } else {
-        alertType = .notBrokerTag
-        NSLog(.logs(.nonBrokeTag), payload)
+        alertType = .nonFocusTag
+        NSLog(.logs(.nonFocusTag), payload)
       }
     } else {
       NSLog(.logs(.noMatchRequired))
@@ -191,7 +191,7 @@ struct BrokerView: View {
     }
   }
 
-  private func createBrokerTag() {
+  private func createFocusTag() {
     nfcReader.write(profileManager.currentProfile.tagPhrase) { success in
       alertType = .tagCreationResult(success: success)
     }
