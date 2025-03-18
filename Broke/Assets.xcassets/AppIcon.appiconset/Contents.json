@@ -1,19 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "Icon (3).png",
+      "filename" : "Screenshot 2025-02-23 at 7.51.25 PM.png",
       "idiom" : "universal",
       "platform" : "ios",
       "size" : "1024x1024"
     },
     {
-      "filename" : "512.png",
       "idiom" : "mac",
       "scale" : "2x",
       "size" : "256x256"
     },
     {
-      "filename" : "512 1.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"

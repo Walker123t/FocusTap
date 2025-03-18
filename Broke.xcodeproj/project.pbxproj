@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3ECEF7302D890D9A00C46B17 /* Strings.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ECEF72F2D890D9A00C46B17 /* Strings.json */; };
+		3ECEF7322D890D9F00C46B17 /* StringsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECEF7312D890D9F00C46B17 /* StringsProvider.swift */; };
 		F51C38D22C775953003B4EB3 /* CoreNFC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F51C38D02C77594E003B4EB3 /* CoreNFC.framework */; };
 		F51C38D72C775CAF003B4EB3 /* AppBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51C38D62C775CAF003B4EB3 /* AppBlocker.swift */; };
 		F51C38D92C775CEC003B4EB3 /* NfcReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51C38D82C775CEC003B4EB3 /* NfcReader.swift */; };
@@ -21,6 +23,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3ECEF72F2D890D9A00C46B17 /* Strings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Strings.json; sourceTree = "<group>"; };
+		3ECEF7312D890D9F00C46B17 /* StringsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsProvider.swift; sourceTree = "<group>"; };
 		F51C38D02C77594E003B4EB3 /* CoreNFC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreNFC.framework; path = System/Library/Frameworks/CoreNFC.framework; sourceTree = SDKROOT; };
 		F51C38D52C775AAF003B4EB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		F51C38D62C775CAF003B4EB3 /* AppBlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBlocker.swift; sourceTree = "<group>"; };
@@ -83,6 +87,8 @@
 				F51C38E72C78ADB5003B4EB3 /* ProfilePicker.swift */,
 				F5A3B05E2C733E3400BD6C7F /* BrokeApp.swift */,
 				F51C38DA2C775D0B003B4EB3 /* BrockerView.swift */,
+				3ECEF72F2D890D9A00C46B17 /* Strings.json */,
+				3ECEF7312D890D9F00C46B17 /* StringsProvider.swift */,
 				F51C38D82C775CEC003B4EB3 /* NfcReader.swift */,
 				F51C38D62C775CAF003B4EB3 /* AppBlocker.swift */,
 				F5A3B0622C733E3500BD6C7F /* Assets.xcassets */,
@@ -165,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F5A3B0662C733E3500BD6C7F /* Preview Assets.xcassets in Resources */,
+				3ECEF7302D890D9A00C46B17 /* Strings.json in Resources */,
 				F5A3B0632C733E3500BD6C7F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -181,6 +188,7 @@
 				F51C38D92C775CEC003B4EB3 /* NfcReader.swift in Sources */,
 				F51C38E12C77DADA003B4EB3 /* ProfileManager.swift in Sources */,
 				F5A3B05F2C733E3400BD6C7F /* BrokeApp.swift in Sources */,
+				3ECEF7322D890D9F00C46B17 /* StringsProvider.swift in Sources */,
 				F51C38E82C78ADB5003B4EB3 /* ProfilePicker.swift in Sources */,
 				F51C38D72C775CAF003B4EB3 /* AppBlocker.swift in Sources */,
 			);
@@ -311,7 +319,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Broke/Broke.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Broke/Preview Content\"";
@@ -335,7 +343,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shutUpAndCode.FocusTap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Focus Tap AppStoreConnect";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Focus Tap Development";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -352,7 +360,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = Broke/Broke.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Broke/Preview Content\"";
@@ -376,7 +384,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.shutUpAndCode.FocusTap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Focus Tap AppStoreConnect";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Focus Tap Development";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

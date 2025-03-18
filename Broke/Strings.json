@@ -1,0 +1,38 @@
+{
+  "common": {
+    "ok": "OK",
+    "create": "Create",
+    "cancel": "Cancel"
+  },
+  "broker": {
+    "tapToBlock": "Tap to block",
+    "tapToUnblock": "Tap to unblock"
+  },
+  "alerts": {
+    "wrongTag": {
+      "title": "Wrong Tag Scanned!",
+      "message": "The current profile requires you scan its corresponding tag to unlock it."
+    },
+    "notBrokerTag": {
+      "title": "Not a Broker Tag",
+      "message": "You can create a new Broker tag using the + button"
+    },
+    "createTag": {
+      "title": "Create Broker Tag",
+      "message": "Do you want to create a new Broker tag?"
+    },
+    "tagCreation": {
+      "title": "Tag Creation",
+      "successMessage": "Broker tag created successfully!",
+      "failureMessage": "Failed to create Broker tag. Please try again."
+    }
+  },
+  "logs": {
+    "matchingTag": "Matching tag, unblocking",
+    "wrongTag": "Wrong Tag for unblocking!\nPayload: %@",
+    "nonBrokeTag": "A Non Broke tag was scanned!\nPayload: %@",
+    "noMatchRequired": "Tag matching not required, unblocking",
+    "switchingProfile": "Switching to profile: %@",
+    "usingCurrentProfile": "No matching profile, using current"
+  }
+}
