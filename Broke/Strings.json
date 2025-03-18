@@ -8,6 +8,12 @@
     "tapToBlock": "Tap to block",
     "tapToUnblock": "Tap to unblock"
   },
+  "profiles": {
+    "title": "Profiles",
+    "newProfile": "New...",
+    "editHint": "Long press on a profile to edit...",
+    "statsFormat": "A: %d | C: %d"
+  },
   "alerts": {
     "wrongTag": {
       "title": "Wrong Tag Scanned!",

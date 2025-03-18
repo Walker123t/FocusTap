@@ -120,28 +120,31 @@ struct BrokerView: View {
     switch type {
     case .wrongTag:
       return Alert(
-        title: Text("Wrong Tag Scanned!"),
-        message: Text("The current profile requires you scan its corresponding tag to unlock it."),
-        dismissButton: .default(Text("OK"))
+        title: Text(verbatim: .alerts(.wrongTagTitle)),
+        message: Text(verbatim: .alerts(.wrongTagMessage)),
+        dismissButton: .default(Text(verbatim: .common(.ok)))
       )
     case .notBrokerTag:
       return Alert(
-        title: Text("Not a Broker Tag"),
-        message: Text("You can create a new Broker tag using the + button"),
-        dismissButton: .default(Text("OK"))
+        title: Text(verbatim: .alerts(.notBrokerTagTitle)),
+        message: Text(verbatim: .alerts(.notBrokerTagMessage)),
+        dismissButton: .default(Text(verbatim: .common(.ok)))
       )
     case .createTag:
       return Alert(
-        title: Text("Create Broker Tag"),
-        message: Text("Do you want to create a new Broker tag?"),
-        primaryButton: .default(Text("Create")) { createBrokerTag() },
-        secondaryButton: .cancel()
+        title: Text(verbatim: .alerts(.createTagTitle)),
+        message: Text(verbatim: .alerts(.createTagMessage)),
+        primaryButton: .default(Text(verbatim: .common(.create))) { createBrokerTag() },
+        secondaryButton: .cancel(Text(verbatim: .common(.cancel)))
       )
     case .tagCreationResult(let success):
       return Alert(
-        title: Text("Tag Creation"),
-        message: Text(success ? "Broker tag created successfully!" : "Failed to create Broker tag. Please try again."),
-        dismissButton: .default(Text("OK"))
+        title: Text(verbatim: .alerts(.tagCreationTitle)),
+        message: Text(verbatim: success ?
+          .alerts(.tagCreationSuccess) :
+            .alerts(.tagCreationFailure)
+        ),
+        dismissButton: .default(Text(verbatim: .common(.ok)))
       )
     }
   }
@@ -162,17 +165,17 @@ struct BrokerView: View {
   private func handleUnblockingTag(payload: String, currentProfile: Profile) {
     if currentProfile.requireMatchingTag {
       if payload == currentProfile.tagPhrase {
-        NSLog("Matching tag, unblocking")
+        NSLog(.logs(.matchingTag))
         appBlocker.toggleBlocking(for: currentProfile)
-      } else if String(payload.prefix(6)) != "BROKE-" {
-        alertType = .notBrokerTag
-        NSLog("A Non Broke tag was scanned!\nPayload: \(payload)")
-      } else {
+      } else if String(payload.prefix(6)) == "BROKE-" {
         alertType = .wrongTag
-        NSLog("Wrong Tag for unblocking!\nPayload: \(payload)")
+        NSLog(.logs(.wrongTag), payload)
+      } else {
+        alertType = .notBrokerTag
+        NSLog(.logs(.nonBrokeTag), payload)
       }
     } else {
-      NSLog("Tag matching not required, unblocking")
+      NSLog(.logs(.noMatchRequired))
       appBlocker.toggleBlocking(for: currentProfile)
     }
   }
@@ -180,10 +183,10 @@ struct BrokerView: View {
   private func handleBlockingTag(payload: String, currentProfile: Profile) {
     if let matchingProfile = profileManager.profiles.first(where: { $0.tagPhrase == payload }) {
       profileManager.setCurrentProfile(id: matchingProfile.id)
-      NSLog("Switching to profile: \(matchingProfile.name)")
+      NSLog(.logs(.switchingProfile), matchingProfile.name)
       appBlocker.toggleBlocking(for: matchingProfile)
     } else {
-      NSLog("No matching profile, using current")
+      NSLog(.logs(.usingCurrentProfile))
       appBlocker.toggleBlocking(for: currentProfile)
     }
   }
