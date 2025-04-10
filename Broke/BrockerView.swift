@@ -167,7 +167,7 @@ struct BrokerView: View {
       if payload == currentProfile.tagPhrase {
         NSLog(.logs(.matchingTag))
         appBlocker.toggleBlocking(for: currentProfile)
-      } else if String(payload.prefix(6)) == "BROKE-" {
+      } else if String(payload.prefix(6)) == "FOCUS-" {
         alertType = .wrongTag
         NSLog(.logs(.wrongTag), payload)
       } else {
