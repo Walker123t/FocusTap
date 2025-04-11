@@ -185,7 +185,7 @@ struct Profile: Identifiable, Codable {
     self.appTokens = appTokens
     self.categoryTokens = categoryTokens
     self.icon = icon
-    self.tagPhrase = "BROKE-" + UUID().uuidString.prefix(8).uppercased()
+    self.tagPhrase = "focusTap://" + UUID().uuidString.prefix(8).uppercased()
     self.requireMatchingTag = requireMatchingTag
   }
 }

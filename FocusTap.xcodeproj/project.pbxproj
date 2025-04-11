@@ -144,7 +144,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F5A3B0562C733E3400BD6C7F /* Build configuration list for PBXProject "Broke" */;
+			buildConfigurationList = F5A3B0562C733E3400BD6C7F /* Build configuration list for PBXProject "FocusTap" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -328,8 +328,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Broke/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Broke;
+				INFOPLIST_KEY_CFBundleDisplayName = "Focus Tap";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Used to scan focus tags";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -369,8 +370,9 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Broke/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Broke;
+				INFOPLIST_KEY_CFBundleDisplayName = "Focus Tap";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
+				INFOPLIST_KEY_NFCReaderUsageDescription = "Used to scan focus tags";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -398,7 +400,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F5A3B0562C733E3400BD6C7F /* Build configuration list for PBXProject "Broke" */ = {
+		F5A3B0562C733E3400BD6C7F /* Build configuration list for PBXProject "FocusTap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F5A3B0672C733E3500BD6C7F /* Debug */,

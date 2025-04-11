@@ -61,14 +61,14 @@ enum CommonStrings: StringPath {
   }
 }
 
-enum BrokerStrings: StringPath {
+enum FocusTapStrings: StringPath {
   case tapToBlock
   case tapToUnblock
 
   var rawValue: [String] {
     switch self {
-    case .tapToBlock: return ["broker", "tapToBlock"]
-    case .tapToUnblock: return ["broker", "tapToUnblock"]
+    case .tapToBlock: return ["Focus", "tapToBlock"]
+    case .tapToUnblock: return ["Focus", "tapToUnblock"]
     }
   }
 }
@@ -92,8 +92,8 @@ enum ProfileStrings: StringPath {
 enum AlertStrings: StringPath {
   case wrongTagTitle
   case wrongTagMessage
-  case notBrokerTagTitle
-  case notBrokerTagMessage
+  case notFocusTagTitle
+  case notFocusTagMessage
   case createTagTitle
   case createTagMessage
   case tagCreationTitle
@@ -104,8 +104,8 @@ enum AlertStrings: StringPath {
     switch self {
     case .wrongTagTitle: return ["alerts", "wrongTag", "title"]
     case .wrongTagMessage: return ["alerts", "wrongTag", "message"]
-    case .notBrokerTagTitle: return ["alerts", "notBrokerTag", "title"]
-    case .notBrokerTagMessage: return ["alerts", "notBrokerTag", "message"]
+    case .notFocusTagTitle: return ["alerts", "notFocusTag", "title"]
+    case .notFocusTagMessage: return ["alerts", "notFocusTag", "message"]
     case .createTagTitle: return ["alerts", "createTag", "title"]
     case .createTagMessage: return ["alerts", "createTag", "message"]
     case .tagCreationTitle: return ["alerts", "tagCreation", "title"]
@@ -141,7 +141,7 @@ extension String {
     StringsProvider.shared.string(for: path)
   }
 
-  static func broker(_ path: BrokerStrings) -> String {
+  static func Focus(_ path: FocusTapStrings) -> String {
     StringsProvider.shared.string(for: path)
   }
 

@@ -4,7 +4,7 @@
     "create": "Create",
     "cancel": "Cancel"
   },
-  "broker": {
+  "Focus": {
     "tapToBlock": "Tap to block",
     "tapToUnblock": "Tap to unblock"
   },
@@ -19,18 +19,18 @@
       "title": "Wrong Tag Scanned!",
       "message": "The current profile requires you scan its corresponding tag to unlock it."
     },
-    "notBrokerTag": {
-      "title": "Not a Broker Tag",
-      "message": "You can create a new Broker tag using the + button"
+    "notFocusTag": {
+      "title": "Not a Focus Tag",
+      "message": "You can create a new Focus tag using the + button. If this tag was previously a Focus tag, try tapping create a new tag and rescanning this one as an update may be required."
     },
     "createTag": {
-      "title": "Create Broker Tag",
-      "message": "Do you want to create a new Broker tag?"
+      "title": "Create Focus Tag",
+      "message": "Do you want to create a new Focus tag?"
     },
     "tagCreation": {
       "title": "Tag Creation",
-      "successMessage": "Broker tag created successfully!",
-      "failureMessage": "Failed to create Broker tag. Please try again."
+      "successMessage": "Focus tag created successfully!",
+      "failureMessage": "Failed to create Focus tag. Please try again."
     }
   },
   "logs": {

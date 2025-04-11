@@ -8,13 +8,13 @@
 import SwiftUI
 
 @main
-struct BrokeApp: App {
+struct FocusTapApp: App {
     @StateObject private var appBlocker = AppBlocker()
     @StateObject private var profileManager = ProfileManager()
     
     var body: some Scene {
         WindowGroup {
-            BrokerView()
+            FocusTapView()
                 .environmentObject(appBlocker)
                 .environmentObject(profileManager)
         }
