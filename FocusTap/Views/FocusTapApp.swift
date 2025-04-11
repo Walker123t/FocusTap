@@ -14,7 +14,7 @@ struct FocusTapApp: App {
     
     var body: some Scene {
         WindowGroup {
-            FocusTapView()
+            HomeView()
                 .environmentObject(appBlocker)
                 .environmentObject(profileManager)
         }

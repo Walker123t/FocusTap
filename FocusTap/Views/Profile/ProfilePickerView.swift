@@ -8,7 +8,7 @@
 import SwiftUI
 import FamilyControls
 
-struct ProfilesPicker: View {
+struct ProfilesPickerView: View {
   @ObservedObject var profileManager: ProfileManager
   @State private var showAddProfileView = false
   @State private var editingProfile: Profile?
@@ -131,5 +131,6 @@ struct ProfileCell: View {
       categoriesBlocked: profile.categoryTokens.count,
       isSelected: isSelected
     )
+    .padding(.top, 3)
   }
 }

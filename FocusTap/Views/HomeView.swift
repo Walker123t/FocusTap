@@ -11,7 +11,7 @@ import SFSymbolsPicker
 import FamilyControls
 import ManagedSettings
 
-struct FocusTapView: View {
+struct HomeView: View {
   // MARK: - Environment
   @EnvironmentObject private var appBlocker: AppBlocker
   @EnvironmentObject private var profileManager: ProfileManager
@@ -76,7 +76,7 @@ struct FocusTapView: View {
   }
 
   private func profilesList(geometry: GeometryProxy) -> some View {
-    ProfilesPicker(profileManager: profileManager)
+    ProfilesPickerView(profileManager: profileManager)
       .frame(height: geometry.size.height / 2)
       .transition(.move(edge: .bottom))
   }

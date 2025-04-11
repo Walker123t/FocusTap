@@ -173,15 +173,12 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
   }
   
   private func writeTagContent(tag: NFCNDEFTag, session: NFCNDEFReaderSession) {
-    guard let textToWrite = self.textToWrite else {
-      session.invalidate(errorMessage: "No text to write")
+    guard let textToWrite = self.textToWrite,
+          let payload = NFCNDEFPayload.wellKnownTypeURIPayload(string: textToWrite)else {
+      session.invalidate(errorMessage: "Unable to create payload with provided text: \(textToWrite ?? "No text provided")")
       return
     }
-    
-    let payload = NFCNDEFPayload.wellKnownTypeTextPayload(
-      string: textToWrite,
-      locale: Locale(identifier: "en")
-    )!
+
     let message = NFCNDEFMessage(records: [payload])
     
     tag.writeNDEF(message) { [weak self] error in

@@ -3,42 +3,32 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3ECEF7302D890D9A00C46B17 /* Strings.json in Resources */ = {isa = PBXBuildFile; fileRef = 3ECEF72F2D890D9A00C46B17 /* Strings.json */; };
-		3ECEF7322D890D9F00C46B17 /* StringsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ECEF7312D890D9F00C46B17 /* StringsProvider.swift */; };
 		F51C38D22C775953003B4EB3 /* CoreNFC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F51C38D02C77594E003B4EB3 /* CoreNFC.framework */; };
-		F51C38D72C775CAF003B4EB3 /* AppBlocker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51C38D62C775CAF003B4EB3 /* AppBlocker.swift */; };
-		F51C38D92C775CEC003B4EB3 /* NfcReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51C38D82C775CEC003B4EB3 /* NfcReader.swift */; };
-		F51C38DB2C775D0B003B4EB3 /* BrockerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51C38DA2C775D0B003B4EB3 /* BrockerView.swift */; };
-		F51C38E12C77DADA003B4EB3 /* ProfileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51C38E02C77DADA003B4EB3 /* ProfileManager.swift */; };
 		F51C38E42C77E847003B4EB3 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = F51C38E32C77E847003B4EB3 /* SFSymbolsPicker */; };
-		F51C38E82C78ADB5003B4EB3 /* ProfilePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51C38E72C78ADB5003B4EB3 /* ProfilePicker.swift */; };
-		F51C38EA2C78B47A003B4EB3 /* ProfileFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F51C38E92C78B47A003B4EB3 /* ProfileFormView.swift */; };
-		F5A3B05F2C733E3400BD6C7F /* BrokeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5A3B05E2C733E3400BD6C7F /* BrokeApp.swift */; };
-		F5A3B0632C733E3500BD6C7F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5A3B0622C733E3500BD6C7F /* Assets.xcassets */; };
-		F5A3B0662C733E3500BD6C7F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5A3B0652C733E3500BD6C7F /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3ECEF72F2D890D9A00C46B17 /* Strings.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = Strings.json; sourceTree = "<group>"; };
-		3ECEF7312D890D9F00C46B17 /* StringsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringsProvider.swift; sourceTree = "<group>"; };
 		F51C38D02C77594E003B4EB3 /* CoreNFC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreNFC.framework; path = System/Library/Frameworks/CoreNFC.framework; sourceTree = SDKROOT; };
-		F51C38D52C775AAF003B4EB3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		F51C38D62C775CAF003B4EB3 /* AppBlocker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBlocker.swift; sourceTree = "<group>"; };
-		F51C38D82C775CEC003B4EB3 /* NfcReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NfcReader.swift; sourceTree = "<group>"; };
-		F51C38DA2C775D0B003B4EB3 /* BrockerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrockerView.swift; sourceTree = "<group>"; };
-		F51C38E02C77DADA003B4EB3 /* ProfileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileManager.swift; sourceTree = "<group>"; };
-		F51C38E72C78ADB5003B4EB3 /* ProfilePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePicker.swift; sourceTree = "<group>"; };
-		F51C38E92C78B47A003B4EB3 /* ProfileFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFormView.swift; sourceTree = "<group>"; };
-		F5A3B05B2C733E3400BD6C7F /* Broke.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Broke.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		F5A3B05E2C733E3400BD6C7F /* BrokeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrokeApp.swift; sourceTree = "<group>"; };
-		F5A3B0622C733E3500BD6C7F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		F5A3B0652C733E3500BD6C7F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		F5A3B06C2C733EA200BD6C7F /* Broke.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Broke.entitlements; sourceTree = "<group>"; };
+		F5A3B05B2C733E3400BD6C7F /* FocusTap.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FocusTap.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3E3EB0F42DA95F0F006F4D0B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Resources/Info.plist,
+			);
+			target = F5A3B05A2C733E3400BD6C7F /* FocusTap */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		3E3EB0E72DA95F0F006F4D0B /* FocusTap */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3E3EB0F42DA95F0F006F4D0B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FocusTap; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		F5A3B0582C733E3400BD6C7F /* Frameworks */ = {
@@ -64,7 +54,7 @@
 		F5A3B0522C733E3400BD6C7F = {
 			isa = PBXGroup;
 			children = (
-				F5A3B05D2C733E3400BD6C7F /* Broke */,
+				3E3EB0E72DA95F0F006F4D0B /* FocusTap */,
 				F5A3B05C2C733E3400BD6C7F /* Products */,
 				F51C38CF2C77594E003B4EB3 /* Frameworks */,
 			);
@@ -73,45 +63,17 @@
 		F5A3B05C2C733E3400BD6C7F /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F5A3B05B2C733E3400BD6C7F /* Broke.app */,
+				F5A3B05B2C733E3400BD6C7F /* FocusTap.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		F5A3B05D2C733E3400BD6C7F /* Broke */ = {
-			isa = PBXGroup;
-			children = (
-				F51C38D52C775AAF003B4EB3 /* Info.plist */,
-				F5A3B06C2C733EA200BD6C7F /* Broke.entitlements */,
-				F51C38E02C77DADA003B4EB3 /* ProfileManager.swift */,
-				F51C38E72C78ADB5003B4EB3 /* ProfilePicker.swift */,
-				F5A3B05E2C733E3400BD6C7F /* BrokeApp.swift */,
-				F51C38DA2C775D0B003B4EB3 /* BrockerView.swift */,
-				3ECEF72F2D890D9A00C46B17 /* Strings.json */,
-				3ECEF7312D890D9F00C46B17 /* StringsProvider.swift */,
-				F51C38D82C775CEC003B4EB3 /* NfcReader.swift */,
-				F51C38D62C775CAF003B4EB3 /* AppBlocker.swift */,
-				F5A3B0622C733E3500BD6C7F /* Assets.xcassets */,
-				F5A3B0642C733E3500BD6C7F /* Preview Content */,
-				F51C38E92C78B47A003B4EB3 /* ProfileFormView.swift */,
-			);
-			path = Broke;
-			sourceTree = "<group>";
-		};
-		F5A3B0642C733E3500BD6C7F /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				F5A3B0652C733E3500BD6C7F /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F5A3B05A2C733E3400BD6C7F /* Broke */ = {
+		F5A3B05A2C733E3400BD6C7F /* FocusTap */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F5A3B0692C733E3500BD6C7F /* Build configuration list for PBXNativeTarget "Broke" */;
+			buildConfigurationList = F5A3B0692C733E3500BD6C7F /* Build configuration list for PBXNativeTarget "FocusTap" */;
 			buildPhases = (
 				F5A3B0572C733E3400BD6C7F /* Sources */,
 				F5A3B0582C733E3400BD6C7F /* Frameworks */,
@@ -121,12 +83,15 @@
 			);
 			dependencies = (
 			);
-			name = Broke;
+			fileSystemSynchronizedGroups = (
+				3E3EB0E72DA95F0F006F4D0B /* FocusTap */,
+			);
+			name = FocusTap;
 			packageProductDependencies = (
 				F51C38E32C77E847003B4EB3 /* SFSymbolsPicker */,
 			);
 			productName = Broke;
-			productReference = F5A3B05B2C733E3400BD6C7F /* Broke.app */;
+			productReference = F5A3B05B2C733E3400BD6C7F /* FocusTap.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -160,7 +125,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F5A3B05A2C733E3400BD6C7F /* Broke */,
+				F5A3B05A2C733E3400BD6C7F /* FocusTap */,
 			);
 		};
 /* End PBXProject section */
@@ -170,9 +135,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F5A3B0662C733E3500BD6C7F /* Preview Assets.xcassets in Resources */,
-				3ECEF7302D890D9A00C46B17 /* Strings.json in Resources */,
-				F5A3B0632C733E3500BD6C7F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,14 +145,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F51C38EA2C78B47A003B4EB3 /* ProfileFormView.swift in Sources */,
-				F51C38DB2C775D0B003B4EB3 /* BrockerView.swift in Sources */,
-				F51C38D92C775CEC003B4EB3 /* NfcReader.swift in Sources */,
-				F51C38E12C77DADA003B4EB3 /* ProfileManager.swift in Sources */,
-				F5A3B05F2C733E3400BD6C7F /* BrokeApp.swift in Sources */,
-				3ECEF7322D890D9F00C46B17 /* StringsProvider.swift in Sources */,
-				F51C38E82C78ADB5003B4EB3 /* ProfilePicker.swift in Sources */,
-				F51C38D72C775CAF003B4EB3 /* AppBlocker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -318,16 +272,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Broke/Broke.entitlements;
+				CODE_SIGN_ENTITLEMENTS = FocusTap/Resources/FocusTap.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Broke/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"FocusTap/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UCL5625TDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Broke/Info.plist;
+				INFOPLIST_FILE = FocusTap/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Focus Tap";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Used to scan focus tags";
@@ -360,16 +314,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Broke/Broke.entitlements;
+				CODE_SIGN_ENTITLEMENTS = FocusTap/Resources/FocusTap.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"Broke/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"FocusTap/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = UCL5625TDG;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Broke/Info.plist;
+				INFOPLIST_FILE = FocusTap/Resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Focus Tap";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NFCReaderUsageDescription = "Used to scan focus tags";
@@ -409,7 +363,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F5A3B0692C733E3500BD6C7F /* Build configuration list for PBXNativeTarget "Broke" */ = {
+		F5A3B0692C733E3500BD6C7F /* Build configuration list for PBXNativeTarget "FocusTap" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F5A3B06A2C733E3500BD6C7F /* Debug */,
