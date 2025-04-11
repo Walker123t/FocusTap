@@ -55,7 +55,16 @@ struct ProfilesPickerView: View {
         .foregroundColor(.secondary.opacity(0.7))
         .padding(.bottom, 8)
     }
-    .background(Color("ProfileSectionBackground"))
+    .background(
+      Color("ProfileSectionBackground")
+        .clipShape(
+          .rect(
+            topLeadingRadius: 20,
+            topTrailingRadius: 20
+          )
+        )
+        .ignoresSafeArea(edges: .bottom)
+    )
     .sheet(item: $editingProfile) { profile in
       ProfileFormView(profile: profile, profileManager: profileManager) {
         editingProfile = nil

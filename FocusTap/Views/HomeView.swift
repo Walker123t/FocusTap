@@ -25,14 +25,12 @@ struct HomeView: View {
     case wrongTag
     case notFocusTag
     case createTag
-    case tagCreationResult(success: Bool)
 
     var id: Int {
       switch self {
       case .wrongTag: return 0
       case .notFocusTag: return 1
       case .createTag: return 2
-      case .tagCreationResult: return 3
       }
     }
   }
@@ -50,13 +48,22 @@ struct HomeView: View {
       GeometryReader { geometry in
         mainContent(geometry: geometry)
       }
-      .navigationBarItems(trailing: createTagButton)
+      .toolbar {
+        Spacer()
+        if !isBlocking {
+          createTagButton
+        }
+      }
       .alert(item: $alertType, content: alertContent)
     }
     .animation(.spring(), value: isBlocking)
     .onOpenURL { url in
-      print(url.absoluteString)
-      handleBlockingTag(payload: url.absoluteString, currentProfile: profileManager.currentProfile)
+      switch isBlocking {
+      case true:
+        handleUnblockingTag(payload: url.absoluteString, currentProfile: profileManager.currentProfile)
+      case false:
+        handleBlockingTag(payload: url.absoluteString, currentProfile: profileManager.currentProfile)
+      }
     }
   }
 
@@ -65,11 +72,7 @@ struct HomeView: View {
     ZStack {
       VStack(spacing: 0) {
         blockOrUnblockButton(geometry: geometry)
-
-        if !isBlocking {
-          Divider()
-          profilesList(geometry: geometry)
-        }
+        profilesList(geometry: geometry)
       }
       .background(backgroundColor)
     }
@@ -78,7 +81,8 @@ struct HomeView: View {
   private func profilesList(geometry: GeometryProxy) -> some View {
     ProfilesPickerView(profileManager: profileManager)
       .frame(height: geometry.size.height / 2)
-      .transition(.move(edge: .bottom))
+      .offset(y: isBlocking ? UIScreen.main.bounds.height : 0)
+      .animation(.easeOut(duration: 1), value: isBlocking)
   }
 
   // MARK: - UI Components
@@ -141,20 +145,17 @@ struct HomeView: View {
         primaryButton: .default(Text(verbatim: .common(.create))) { createFocusTag() },
         secondaryButton: .cancel(Text(verbatim: .common(.cancel)))
       )
-    case .tagCreationResult(let success):
-      return Alert(
-        title: Text(verbatim: .alerts(.tagCreationTitle)),
-        message: Text(verbatim: success ?
-          .alerts(.tagCreationSuccess) :
-            .alerts(.tagCreationFailure)
-        ),
-        dismissButton: .default(Text(verbatim: .common(.ok)))
-      )
     }
   }
 
   // MARK: - NFC Tag Handling
   private func scanTag() {
+    if !isBlocking &&
+       !profileManager.currentProfile.requireTagToBlock {
+      handleBlockingTag(payload: "", currentProfile: profileManager.currentProfile)
+      return
+    }
+
     nfcReader.scan { payload in
       let currentProfile = profileManager.currentProfile
 
@@ -189,14 +190,14 @@ struct HomeView: View {
       profileManager.setCurrentProfile(id: matchingProfile.id)
       NSLog(.logs(.switchingProfile), matchingProfile.name)
       appBlocker.toggleBlocking(for: matchingProfile)
+    } else if !currentProfile.requireTagToBlock {
+      appBlocker.toggleBlocking(for: currentProfile)
     } else {
       alertType = .notFocusTag
     }
   }
 
   private func createFocusTag() {
-    nfcReader.write(profileManager.currentProfile.tagPhrase) { success in
-      alertType = .tagCreationResult(success: success)
-    }
+    nfcReader.write(profileManager.currentProfile.tagPhrase)
   }
 }

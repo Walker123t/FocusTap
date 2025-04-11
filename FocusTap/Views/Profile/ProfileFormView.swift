@@ -18,6 +18,7 @@ struct ProfileFormView: View {
   @State private var activitySelection: FamilyActivitySelection
   @State private var showDeleteConfirmation = false
   @State private var requireMatchingTag: Bool
+  @State private var requireTagToBlock: Bool
   let profile: Profile?
   let onDismiss: () -> Void
   
@@ -28,7 +29,8 @@ struct ProfileFormView: View {
     _profileName = State(initialValue: profile?.name ?? "")
     _profileIcon = State(initialValue: profile?.icon ?? "bell.slash")
     _requireMatchingTag = State(initialValue: profile?.requireMatchingTag ?? false)
-    
+    _requireTagToBlock = State(initialValue: profile?.requireTagToBlock ?? true)
+
     var selection = FamilyActivitySelection()
     selection.applicationTokens = profile?.appTokens ?? []
     selection.categoryTokens = profile?.categoryTokens ?? []
@@ -92,6 +94,15 @@ struct ProfileFormView: View {
               .font(.caption)
               .foregroundColor(.secondary)
           }
+
+          Toggle("Require tag to block", isOn: $requireTagToBlock)
+
+          if !requireTagToBlock {
+            Text("When disabled you will be able to block apps without scanning a tag. MAKE SURE YOU SCAN A FOCUS TAG BEFORE USING THIS ACTION OR YOU WILL NOT BE ABLE TO UNBLOCK")
+              .font(.caption)
+              .fontWeight(.bold)
+              .foregroundColor(.red)
+          }
         }
         
         if profile != nil {
@@ -145,7 +156,8 @@ struct ProfileFormView: View {
         appTokens: activitySelection.applicationTokens,
         categoryTokens: activitySelection.categoryTokens,
         icon: profileIcon,
-        requireMatchingTag: requireMatchingTag
+        requireMatchingTag: requireMatchingTag,
+        requireTagToBlock: requireTagToBlock
       )
     } else {
       let newProfile = Profile(
@@ -153,7 +165,8 @@ struct ProfileFormView: View {
         appTokens: activitySelection.applicationTokens,
         categoryTokens: activitySelection.categoryTokens,
         icon: profileIcon,
-        requireMatchingTag: requireMatchingTag
+        requireMatchingTag: requireMatchingTag,
+        requireTagToBlock: requireTagToBlock
       )
       profileManager.addProfile(newProfile: newProfile)
     }

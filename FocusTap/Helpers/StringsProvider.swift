@@ -97,8 +97,6 @@ enum AlertStrings: StringPath {
   case createTagTitle
   case createTagMessage
   case tagCreationTitle
-  case tagCreationSuccess
-  case tagCreationFailure
 
   var rawValue: [String] {
     switch self {
@@ -109,8 +107,6 @@ enum AlertStrings: StringPath {
     case .createTagTitle: return ["alerts", "createTag", "title"]
     case .createTagMessage: return ["alerts", "createTag", "message"]
     case .tagCreationTitle: return ["alerts", "tagCreation", "title"]
-    case .tagCreationSuccess: return ["alerts", "tagCreation", "successMessage"]
-    case .tagCreationFailure: return ["alerts", "tagCreation", "failureMessage"]
     }
   }
 }

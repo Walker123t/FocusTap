@@ -27,11 +27,6 @@
       "title": "Create Focus Tag",
       "message": "Do you want to create a new Focus tag?"
     },
-    "tagCreation": {
-      "title": "Tag Creation",
-      "successMessage": "Focus tag created successfully!",
-      "failureMessage": "Failed to create Focus tag. Please try again."
-    }
   },
   "logs": {
     "matchingTag": "Matching tag, unblocking",

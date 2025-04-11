@@ -11,7 +11,6 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
   @Published private(set) var message = "Waiting for NFC tag..."
   private var session: NFCNDEFReaderSession?
   private var onScanComplete: ((String) -> Void)?
-  private var onWriteComplete: ((Bool) -> Void)?
   private var isWriting = false
   private var textToWrite: String?
   
@@ -21,8 +20,7 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
     startSession()
   }
   
-  func write(_ text: String, completion: @escaping (Bool) -> Void) {
-    self.onWriteComplete = completion
+  func write(_ text: String) {
     self.textToWrite = text
     self.isWriting = true
     startSession()
@@ -155,7 +153,7 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
       guard let self = self else { return }
       
       if let error = error {
-        session.invalidate(errorMessage: "Failed to query tag")
+        session.invalidate(errorMessage: "Failed to query tag: \(error)")
         return
       }
       
@@ -189,10 +187,6 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
       } else {
         session.alertMessage = "Write successful!"
         session.invalidate()
-      }
-      
-      DispatchQueue.main.async {
-        self.onWriteComplete?(error == nil)
       }
     }
   }
