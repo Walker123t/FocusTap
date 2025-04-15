@@ -13,6 +13,8 @@ class ProfileManager: ObservableObject {
   @Published var profiles: [Profile] = []
   @Published var currentProfileId: UUID?
 
+  static let shared: ProfileManager = .init()
+
   init() {
     loadProfiles()
     ensureDefaultProfile()
