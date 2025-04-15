@@ -1,44 +1,50 @@
-<div align="center">
-  <a href="https://github.com/OzTamir/broke">
-    <img src="Icon.png" alt="Logo" style="height:100px; width:100px">
-  </a>
+# FocusTap
 
-  <h3 align="center">Broke</h3>
-
-  <p align="center">
-    Open Source iOS App for Minimalist Smartphone Use
-    <br />
-    <br />
-    <a href="https://github.com/OzTamir/broke/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/OzTamir/broke/issues">Request Feature</a>
-  </p>
-</div>
-Welcome to Broke, an open-source alternative to Brick that lets you experience minimalist smartphone use.
-Inspired by Brick's mission to help users reduce distractions, Broke offers a streamlined approach to limiting your smartphone's functionality.
-
-### Acknowledgments
-While Broke is a fully functional app, if you find value in this concept and want a polished experience, consider supporting the original creators by purchasing Brick [here](https://getbrick.app/shop).
-
-Out of respect to the original team, Broke is not available on the app store for download - I created it for open-source hobbists.
+FocusTap is an iOS application designed to help users maintain focus and productivity by managing app access through NFC technology and iOS Screen Time features.
 
 ## Features
-* Minimalist interface
-* Open-source, customizable codebase
-* Supports multiple profiles
-* Allows creating a Broke-compatible tags (requires a physical tag)
 
-## Creating a Broke tag
-To create a tag, you need to get a physical NFC tag - any tag compatible with iOS will do the trick - I used an NTAG213.
+- NFC tag integration for quick focus mode activation
+- App blocking capabilities using Screen Time API
+- Customizable focus profiles
 
-I also created a 3D-printable model to carry tags around or stick them on the fridge - check it out [here](https://www.printables.com/model/983618-broke-tag-nfc-tag-cover-with-keychain-and-magnet-h).
+## Requirements
 
-![tag](https://github.com/user-attachments/assets/7c961db0-7746-46c3-8fd2-17739ead49c1)
+- iOS 16.0+
+- iPhone with NFC capabilities
+- Physical NFC tags (for tap functionality)
 
-Once you have a tag, you can use the interface of the Broke up to turn it into a tag - it will write a simple phrase that can be detected by the app to block/unblock.
+## Installation
 
-## Getting Started
-To use Broke, follow these steps:
-* Clone the repository.
-* Open the project in Xcode.
-* Build and run the app on your iOS device.
+### With Apple Developer Account
+1. Clone the repository
+2. Open FocusTap.xcodeproj in Xcode
+3. Build and run on your device
+
+### With TestFlight
+1. Install the [TestFlight App](https://apps.apple.com/us/app/testflight/id899247664) on your iPhone
+2. Open [this link](https://testflight.apple.com/join/fq5z2vXS)
+3. Click install
+
+## Technology Stack
+
+- SwiftUI
+- UserDefaults
+- FamilyControls framework
+- CoreNFC
+
+## Contributing
+
+Want to contribute? Open a pull request or issue with your proposed changes!
+
+## Support
+
+For support inquiries, feature requests, or bug reports, please open an issue in the repository or send me an email at FocusTapSupport@proton.me
+
+## Version
+
+Current version: Alpha_04.15.25
+
+## License
+
+[License information]
