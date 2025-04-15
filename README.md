@@ -44,7 +44,3 @@ For support inquiries, feature requests, or bug reports, please open an issue in
 ## Version
 
 Current version: Alpha_04.15.25
-
-## License
-
-[License information]
