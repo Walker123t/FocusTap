@@ -9,9 +9,9 @@ import SwiftUI
 
 @main
 struct FocusTapApp: App {
-    @StateObject private var appBlocker = AppBlocker()
-    @StateObject private var profileManager = ProfileManager()
-    
+  @StateObject private var appBlocker = AppBlocker.shared
+  @StateObject private var profileManager = ProfileManager.shared
+
     var body: some Scene {
         WindowGroup {
             HomeView()

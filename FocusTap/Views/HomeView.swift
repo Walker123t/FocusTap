@@ -39,7 +39,7 @@ struct HomeView: View {
   // MARK: - Computed Properties
   private var isBlocking: Bool {
     get {
-      return appBlocker.isBlocking
+      return appBlocker.isBlocking == .enabled
     }
   }
 
