@@ -1,15 +1,7 @@
 [
   {
-    "title": "New “What’s New” Screen",
-    "description": "I’ve added a simple, dedicated screen to highlight new features and changes in each version of the app. You can access it from the About page, and it will also appear after each app update."
+    "title": "Enforcing Apple’s App Blocking Limits with UI Counters",
+    "description": "After reviewing Apple's documentation, it appears that the system can only support blocking up to 50 apps and 50 categories—beyond that, the blocking feature ceases to function. To help users manage this limitation, I've added counters to the 'Configure Blocked Apps' page, making it easier to track the number of selected apps and categories."
   },
-  {
-    "title": "App Intent Roll Back",
-    "description": "I’ve come to realize that App Intents are not yet fully ready for release and still require significant work. They will be available in their complete form in a future update."
-  },
-  {
-    "title": "Idea Submission Button",
-    "description": "A new Idea button has been added to the About page, allowing you to easily submit your ideas and suggestions for app improvements."
-  }
 ]
 
