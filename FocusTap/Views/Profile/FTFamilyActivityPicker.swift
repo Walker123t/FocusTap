@@ -24,13 +24,19 @@ struct FTFamilyActivityPicker: View {
       VStack(spacing: 16) {
         // Header explanation
         VStack(alignment: .leading, spacing: 8) {
-          Text(String.profileForm(.selectAppsToBlockTitle))
-            .font(.title2)
-            .fontWeight(.bold)
+          if temporarySelection.applicationTokens.isEmpty && temporarySelection.categoryTokens.isEmpty {
+            Text(String.profileForm(.selectAppsToBlockTitle))
+              .font(.title2)
+              .fontWeight(.bold)
+          } else {
+            Text("\(temporarySelection.applicationTokens.count)/50 Applications\n\(temporarySelection.categoryTokens.count)/50 Categories")
+              .font(.title2)
+              .fontWeight(.bold)
+          }
 
-          Text(String.profileForm(.selectAppsToBlockDesctiption))
-            .font(.subheadline)
-            .foregroundColor(.secondary)
+            Text(String.profileForm((temporarySelection.applicationTokens.isEmpty && temporarySelection.categoryTokens.isEmpty) ? .selectAppsToBlockDesctiption : .selectAppsToBlockDescription2))
+              .font(.subheadline)
+              .foregroundColor(.secondary)
         }
         .padding(.horizontal)
 
