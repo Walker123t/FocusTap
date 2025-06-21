@@ -29,13 +29,13 @@ struct ProfileFormView: View {
 
     _profileName = State(initialValue: profile?.name ?? "")
     _profileIcon = State(initialValue: profile?.icon ?? "bell.slash")
-    _requireMatchingTag = State(initialValue: profile?.requireMatchingTag ?? false)
-    _requireTagToBlock = State(initialValue: profile?.requireTagToBlock ?? true)
+    _requireMatchingTag = State(initialValue: /*profile?.requireMatchingTag ??*/ false)
+    _requireTagToBlock = State(initialValue: /*profile?.requireTagToBlock ??*/ true)
 
     if let profile = profile {
       var tempSelection = FamilyActivitySelection()
-      tempSelection.applicationTokens = profile.appTokens
-      tempSelection.categoryTokens = profile.categoryTokens
+      tempSelection.applicationTokens = [] /*profile.appTokens*/
+      tempSelection.categoryTokens = [] /*profile.categoryTokens*/
 
       _activitySelection = State(initialValue: tempSelection)
     } else {
@@ -149,27 +149,27 @@ struct ProfileFormView: View {
   }
 
   private func handleSave() {
-    if let existingProfile = profile {
-      profileManager.updateProfile(
-        id: existingProfile.id,
-        name: profileName,
-        appTokens: activitySelection.applicationTokens,
-        categoryTokens: activitySelection.categoryTokens,
-        icon: profileIcon,
-        requireMatchingTag: requireMatchingTag,
-        requireTagToBlock: requireTagToBlock
-      )
-    } else {
-      let newProfile = Profile(
-        name: profileName,
-        appTokens: activitySelection.applicationTokens,
-        categoryTokens: activitySelection.categoryTokens,
-        icon: profileIcon,
-        requireMatchingTag: requireMatchingTag,
-        requireTagToBlock: requireTagToBlock
-      )
-      profileManager.addProfile(newProfile: newProfile)
-    }
+//    if let existingProfile = profile {
+//      profileManager.updateProfile(
+//        id: existingProfile.id,
+//        name: profileName,
+//        appTokens: activitySelection.applicationTokens,
+//        categoryTokens: activitySelection.categoryTokens,
+//        icon: profileIcon,
+//        requireMatchingTag: requireMatchingTag,
+//        requireTagToBlock: requireTagToBlock
+//      )
+//    } else {
+//      let newProfile = Profile(
+//        name: profileName,
+//        appTokens: activitySelection.applicationTokens,
+//        categoryTokens: activitySelection.categoryTokens,
+//        icon: profileIcon,
+//        requireMatchingTag: requireMatchingTag,
+//        requireTagToBlock: requireTagToBlock
+//      )
+//      profileManager.addProfile(newProfile: newProfile)
+//    }
     onDismiss()
   }
 }

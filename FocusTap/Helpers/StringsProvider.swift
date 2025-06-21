@@ -95,6 +95,7 @@ enum profileFormStrings: String {
 
   case selectAppsToBlockTitle = "Select Apps to Block"
   case selectAppsToBlockDesctiption = "Choose which apps and app categories you want to block when this profile is active."
+  case selectAppsToBlockDesctiption2 = "Selecting more than 50 of either apps or categories will not work. Don't blame me, blame Apple."
 }
 
 // MARK: - String Extensions

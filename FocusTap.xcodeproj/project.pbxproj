@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E21F9992E06EE3C00C11B2D /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = 3E21F9982E06EE3C00C11B2D /* ComposableArchitecture */; };
 		F51C38D22C775953003B4EB3 /* CoreNFC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F51C38D02C77594E003B4EB3 /* CoreNFC.framework */; };
 		F51C38E42C77E847003B4EB3 /* SFSymbolsPicker in Frameworks */ = {isa = PBXBuildFile; productRef = F51C38E32C77E847003B4EB3 /* SFSymbolsPicker */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,7 @@
 			files = (
 				F51C38D22C775953003B4EB3 /* CoreNFC.framework in Frameworks */,
 				F51C38E42C77E847003B4EB3 /* SFSymbolsPicker in Frameworks */,
+				3E21F9992E06EE3C00C11B2D /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +101,7 @@
 			name = FocusTap;
 			packageProductDependencies = (
 				F51C38E32C77E847003B4EB3 /* SFSymbolsPicker */,
+				3E21F9982E06EE3C00C11B2D /* ComposableArchitecture */,
 			);
 			productName = Broke;
 			productReference = F5A3B05B2C733E3400BD6C7F /* FocusTap.app */;
@@ -129,6 +132,7 @@
 			mainGroup = F5A3B0522C733E3400BD6C7F;
 			packageReferences = (
 				F51C38E22C77E847003B4EB3 /* XCRemoteSwiftPackageReference "SFSymbolsPicker" */,
+				3E21F9972E06EE3C00C11B2D /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			preferredProjectObjectVersion = 56;
 			productRefGroup = F5A3B05C2C733E3400BD6C7F /* Products */;
@@ -300,6 +304,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -342,6 +347,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -385,6 +391,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3E21F9972E06EE3C00C11B2D /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.20.2;
+			};
+		};
 		F51C38E22C77E847003B4EB3 /* XCRemoteSwiftPackageReference "SFSymbolsPicker" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/alessiorubicini/SFSymbolsPicker";
@@ -396,6 +410,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3E21F9982E06EE3C00C11B2D /* ComposableArchitecture */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E21F9972E06EE3C00C11B2D /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
+		};
 		F51C38E32C77E847003B4EB3 /* SFSymbolsPicker */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = F51C38E22C77E847003B4EB3 /* XCRemoteSwiftPackageReference "SFSymbolsPicker" */;

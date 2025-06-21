@@ -77,10 +77,13 @@ struct HomeView: View {
   private func mainContent(geometry: GeometryProxy) -> some View {
     ZStack {
       VStack(spacing: 0) {
-        blockOrUnblockButton(geometry: geometry)
-        profilesList(geometry: geometry)
+        ProfileCardCarousel(profiles: profileManager.profiles,
+                            isBlocking: appBlocker.isBlocking,
+                            activeSessionProfileId: nil,
+                            elapsedTime: 60) {
+          print("Tapped")
+        }
       }
-      .background(backgroundColor)
     }
     .onAppear {
       let currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
@@ -96,10 +99,11 @@ struct HomeView: View {
   }
 
   private func profilesList(geometry: GeometryProxy) -> some View {
-    ProfilesPickerView(profileManager: profileManager)
-      .frame(height: geometry.size.height / 2)
-      .offset(y: isBlocking ? UIScreen.main.bounds.height : 0)
-      .animation(.easeOut(duration: 1), value: isBlocking)
+//    ProfilesPickerView(profileManager: profileManager)
+//      .frame(height: geometry.size.height / 2)
+//      .offset(y: isBlocking ? UIScreen.main.bounds.height : 0)
+//      .animation(.easeOut(duration: 1), value: isBlocking)
+    Text("Hello World")
   }
 
   // MARK: - UI Components
@@ -175,54 +179,54 @@ struct HomeView: View {
 
   // MARK: - NFC Tag Handling
   private func scanTag() {
-    if !isBlocking &&
-       !profileManager.currentProfile.requireTagToBlock {
-      handleBlockingTag(payload: "", currentProfile: profileManager.currentProfile)
-      return
-    }
-
-    nfcReader.scan { payload in
-      let currentProfile = profileManager.currentProfile
-
-      if isBlocking {
-        handleUnblockingTag(payload: payload, currentProfile: currentProfile)
-      } else {
-        handleBlockingTag(payload: payload, currentProfile: currentProfile)
-      }
-    }
+//    if !isBlocking &&
+//       !profileManager.currentProfile.requireTagToBlock {
+//      handleBlockingTag(payload: "", currentProfile: profileManager.currentProfile)
+//      return
+//    }
+//
+//    nfcReader.scan { payload in
+//      let currentProfile = profileManager.currentProfile
+//
+//      if isBlocking {
+//        handleUnblockingTag(payload: payload, currentProfile: currentProfile)
+//      } else {
+//        handleBlockingTag(payload: payload, currentProfile: currentProfile)
+//      }
+//    }
   }
 
   private func handleUnblockingTag(payload: String, currentProfile: Profile) {
-    if currentProfile.requireMatchingTag {
-      if payload == currentProfile.tagPhrase {
-        NSLog(.logs(.matchingTag))
-        appBlocker.toggleBlocking(for: currentProfile)
-      } else if String(payload.prefix(11)) == "focusTap://" {
-        alertType = .wrongTag
-        NSLog(.logs(.wrongTag), payload)
-      } else {
-        alertType = .notFocusTag
-        NSLog(.logs(.nonBrokeTag), payload)
-      }
-    } else {
-      NSLog(.logs(.noMatchRequired))
-      appBlocker.toggleBlocking(for: currentProfile)
-    }
+//    if currentProfile.requireMatchingTag {
+//      if payload == currentProfile.tagPhrase {
+//        NSLog(.logs(.matchingTag))
+//        appBlocker.toggleBlocking(for: currentProfile)
+//      } else if String(payload.prefix(11)) == "focusTap://" {
+//        alertType = .wrongTag
+//        NSLog(.logs(.wrongTag), payload)
+//      } else {
+//        alertType = .notFocusTag
+//        NSLog(.logs(.nonBrokeTag), payload)
+//      }
+//    } else {
+//      NSLog(.logs(.noMatchRequired))
+//      appBlocker.toggleBlocking(for: currentProfile)
+//    }
   }
 
   private func handleBlockingTag(payload: String, currentProfile: Profile) {
-    if let matchingProfile = profileManager.profiles.first(where: { $0.tagPhrase == payload }) {
-      profileManager.setCurrentProfile(id: matchingProfile.id)
-      NSLog(.logs(.switchingProfile), matchingProfile.name)
-      appBlocker.toggleBlocking(for: matchingProfile)
-    } else if !currentProfile.requireTagToBlock {
-      appBlocker.toggleBlocking(for: currentProfile)
-    } else {
-      alertType = .notFocusTag
-    }
+//    if let matchingProfile = profileManager.profiles.first(where: { $0.tagPhrase == payload }) {
+//      profileManager.setCurrentProfile(id: matchingProfile.id)
+//      NSLog(.logs(.switchingProfile), matchingProfile.name)
+//      appBlocker.toggleBlocking(for: matchingProfile)
+//    } else if !currentProfile.requireTagToBlock {
+//      appBlocker.toggleBlocking(for: currentProfile)
+//    } else {
+//      alertType = .notFocusTag
+//    }
   }
 
   private func createFocusTag() {
-    nfcReader.write(profileManager.currentProfile.tagPhrase)
+//    nfcReader.write(profileManager.currentProfile.tagPhrase)
   }
 }

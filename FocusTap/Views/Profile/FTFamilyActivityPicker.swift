@@ -34,7 +34,7 @@ struct FTFamilyActivityPicker: View {
               .fontWeight(.bold)
           }
 
-            Text(String.profileForm((temporarySelection.applicationTokens.isEmpty && temporarySelection.categoryTokens.isEmpty) ? .selectAppsToBlockDesctiption : .selectAppsToBlockDescription2))
+          Text(String.profileForm((temporarySelection.applicationTokens.isEmpty && temporarySelection.categoryTokens.isEmpty) ? .selectAppsToBlockDesctiption : .selectAppsToBlockDesctiption2))
               .font(.subheadline)
               .foregroundColor(.secondary)
         }

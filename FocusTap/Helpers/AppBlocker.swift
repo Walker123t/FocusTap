@@ -59,18 +59,18 @@ class AppBlocker: ObservableObject {
   }
 
   func enableBlocking(for profile: Profile) {
-    NSLog("Blocking \(profile.appTokens.count) apps")
-    setIsBlocking(to: true)
-    store.shield.applications = profile.appTokens.isEmpty ? nil : profile.appTokens
-    store.shield.applicationCategories = profile.categoryTokens.isEmpty ?
-      .none :
-      .specific(profile.categoryTokens)
+//    NSLog("Blocking \(profile.appTokens.count) apps")
+//    setIsBlocking(to: true)
+//    store.shield.applications = profile.appTokens.isEmpty ? nil : profile.appTokens
+//    store.shield.applicationCategories = profile.categoryTokens.isEmpty ?
+//      .none :
+//      .specific(profile.categoryTokens)
   }
 
   private func disableBlocking() {
-    setIsBlocking(to: false)
-    store.shield.applications = nil
-    store.shield.applicationCategories = .none
+//    setIsBlocking(to: false)
+//    store.shield.applications = nil
+//    store.shield.applicationCategories = .none
   }
 
   private func loadBlockingState() {
