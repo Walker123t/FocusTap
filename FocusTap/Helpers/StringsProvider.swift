@@ -83,6 +83,7 @@ enum profileFormStrings: String {
   case configureBlockedAppsButtonText = "Configure Blocked Apps"
   case blockedAppsBodyText = "Blocked Apps:"
   case blockedCategoriesBodyText = "Blocked Categories:"
+  case blockedWebsitesBodyText = "Blocked Websites:"
   case appConfigurationDescription = "Broke can't list the names of the apps due to privacy concerns, it is only able to see the amount of apps selected in the configuration screen."
 
   case securitySectionHeader = "Security"
@@ -95,7 +96,7 @@ enum profileFormStrings: String {
 
   case selectAppsToBlockTitle = "Select Apps to Block"
   case selectAppsToBlockDescription = "Choose which apps and app categories you want to block when this profile is active."
-  case selectAppsToBlockDescription2 = "Select up to 50 apps and websites to block when this profile is active. Blocking more than 50 isn’t supported due to Apple’s API limits."
+  case selectAppsToBlockDescription2 = "Select up to 50 apps and 50 categories to block when this profile is active. Blocking more than 50 isn’t supported due to Apple’s API limits."
 }
 
 // MARK: - String Extensions

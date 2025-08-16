@@ -30,7 +30,7 @@ class ProfileManager: ObservableObject {
       profiles = decodedProfiles
     } else {
       // Create a default profile if no profiles are saved
-      let defaultProfile = Profile(name: "Default", appTokens: [], categoryTokens: [], icon: "bell.slash")
+      let defaultProfile = Profile(name: "Default", appTokens: [], categoryTokens: [], webTokens: [], icon: "bell.slash")
       profiles = [defaultProfile]
       currentProfileId = defaultProfile.id
     }
@@ -53,7 +53,7 @@ class ProfileManager: ObservableObject {
   }
 
   func addProfile(name: String, icon: String = "bell.slash") {
-    let newProfile = Profile(name: name, appTokens: [], categoryTokens: [], icon: icon)
+    let newProfile = Profile(name: name, appTokens: [], categoryTokens: [], webTokens: [], icon: icon)
     profiles.append(newProfile)
     currentProfileId = newProfile.id
     saveProfiles()
@@ -123,6 +123,7 @@ class ProfileManager: ObservableObject {
     name: String? = nil,
     appTokens: Set<ApplicationToken>? = nil,
     categoryTokens: Set<ActivityCategoryToken>? = nil,
+    webTokens: Set<WebDomainToken>? = nil,
     icon: String? = nil,
     requireMatchingTag: Bool? = nil,
     requireTagToBlock: Bool? = nil
@@ -137,6 +138,9 @@ class ProfileManager: ObservableObject {
       if let categoryTokens = categoryTokens {
         profiles[index].categoryTokens = categoryTokens
       }
+      if let webTokens = webTokens {
+        profiles[index].webTokens = webTokens
+      }
       if let icon = icon {
         profiles[index].icon = icon
       }
@@ -146,7 +150,6 @@ class ProfileManager: ObservableObject {
       if let requireTagToBlock = requireTagToBlock {
         profiles[index].requireTagToBlock = requireTagToBlock
       }
-
       if currentProfileId == id {
         currentProfileId = profiles[index].id
       }
@@ -157,7 +160,7 @@ class ProfileManager: ObservableObject {
 
   private func ensureDefaultProfile() {
     if profiles.isEmpty {
-      let defaultProfile = Profile(name: "Default", appTokens: [], categoryTokens: [], icon: "bell.slash")
+      let defaultProfile = Profile(name: "Default", appTokens: [], categoryTokens: [], webTokens: [], icon: "bell.slash")
       profiles.append(defaultProfile)
       currentProfileId = defaultProfile.id
       saveProfiles()
@@ -177,6 +180,7 @@ struct Profile: Identifiable, Codable {
   var name: String
   var appTokens: Set<ApplicationToken>
   var categoryTokens: Set<ActivityCategoryToken>
+  var webTokens: Set<WebDomainToken>
   var icon: String
   var tagPhrase: String
   var requireMatchingTag: Bool
@@ -186,11 +190,12 @@ struct Profile: Identifiable, Codable {
     name == "Default"
   }
 
-  init(name: String, appTokens: Set<ApplicationToken>, categoryTokens: Set<ActivityCategoryToken>, icon: String = "bell.slash", requireMatchingTag: Bool = false, requireTagToBlock: Bool = true) {
+  init(name: String, appTokens: Set<ApplicationToken>, categoryTokens: Set<ActivityCategoryToken>, webTokens: Set<WebDomainToken>, icon: String = "bell.slash", requireMatchingTag: Bool = false, requireTagToBlock: Bool = true) {
     self.id = UUID()
     self.name = name
     self.appTokens = appTokens
     self.categoryTokens = categoryTokens
+    self.webTokens = webTokens
     self.icon = icon
     self.tagPhrase = "focusTap://" + UUID().uuidString.prefix(8).uppercased()
     self.requireMatchingTag = requireMatchingTag

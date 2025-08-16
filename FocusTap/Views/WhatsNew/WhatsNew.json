@@ -1,7 +1,11 @@
 [
   {
-    "title": "Enforcing Apple’s App Blocking Limits with UI Counters",
-    "description": "After reviewing Apple's documentation, it appears that the system can only support blocking up to 50 apps and 50 categories—beyond that, the blocking feature ceases to function. To help users manage this limitation, I've added counters to the 'Configure Blocked Apps' page, making it easier to track the number of selected apps and categories."
+    "title": "Added ability to block Websites",
+    "description": "Added the ability to block Websites and Website Categories."
+  },
+  {
+    "title": "Currently working on a redesign of the application",
+    "description": "If any of you would like to help redesign the application and expand its functionality a bit please reachout to me through the support tab. Mainly looking for a designer but if anyone wants to help out from a technical perspective I'd love to talk."
   },
 ]
 

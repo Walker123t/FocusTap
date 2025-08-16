@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Scheme
+   LastUpgradeVersion = "2600"
+   version = "1.7">
+   <BuildAction
+      parallelizeBuildables = "YES"
+      buildImplicitDependencies = "YES"
+      buildArchitectures = "Automatic">
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "#!/bin/sh&#10;APP_ID=&quot;com.ShutUpAndCode.BuildSignal&quot;&#10;LOG=&quot;/tmp/buildsignal_post_action.log&quot;&#10;&#10;APP_PATH=&quot;&quot;&#10;if [ -n &quot;${TARGET_BUILD_DIR:-}&quot; ] &amp;&amp; [ -n &quot;${WRAPPER_NAME:-}&quot; ]; then&#10;  APP_PATH=&quot;${TARGET_BUILD_DIR}/${WRAPPER_NAME}&quot;&#10;fi&#10;&#10;if [ -d &quot;${APP_PATH}&quot; ]; then&#10;  STATUS=true&#10;else&#10;  STATUS=false&#10;fi&#10;&#10;{&#10;  echo &quot;[$(date)] STATUS=${STATUS}&quot;&#10;  echo &quot;TARGET_BUILD_DIR=${TARGET_BUILD_DIR:-}&quot;&#10;  echo &quot;WRAPPER_NAME=${WRAPPER_NAME:-}&quot;&#10;  echo &quot;APP_PATH=${APP_PATH}&quot;&#10;} &gt;&gt; &quot;${LOG}&quot;&#10;&#10;# Ensure receiver is running (no UI focus)&#10;open -b &quot;${APP_ID}&quot; -g || true&#10;sleep 0.2&#10;&#10;# Send status event; never fail the build because of notification&#10;osascript -e &quot;tell application id \&quot;${APP_ID}\&quot; to &#xab;event BSIGSTAT&#xbb; ${STATUS}&quot; &gt;/dev/null 2&gt;&amp;1 || true&#10;">
+               <EnvironmentBuildable>
+                  <BuildableReference
+                     BuildableIdentifier = "primary"
+                     BlueprintIdentifier = "F5A3B05A2C733E3400BD6C7F"
+                     BuildableName = "FocusTap.app"
+                     BlueprintName = "FocusTap"
+                     ReferencedContainer = "container:FocusTap.xcodeproj">
+                  </BuildableReference>
+               </EnvironmentBuildable>
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "F5A3B05A2C733E3400BD6C7F"
+               BuildableName = "FocusTap.app"
+               BlueprintName = "FocusTap"
+               ReferencedContainer = "container:FocusTap.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
+   </BuildAction>
+   <TestAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      shouldAutocreateTestPlan = "YES">
+   </TestAction>
+   <LaunchAction
+      buildConfiguration = "Debug"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      launchStyle = "0"
+      useCustomWorkingDirectory = "NO"
+      ignoresPersistentStateOnLaunch = "NO"
+      debugDocumentVersioning = "YES"
+      debugServiceExtension = "internal"
+      allowLocationSimulation = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F5A3B05A2C733E3400BD6C7F"
+            BuildableName = "FocusTap.app"
+            BlueprintName = "FocusTap"
+            ReferencedContainer = "container:FocusTap.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </LaunchAction>
+   <ProfileAction
+      buildConfiguration = "Release"
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      savedToolIdentifier = ""
+      useCustomWorkingDirectory = "NO"
+      debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "F5A3B05A2C733E3400BD6C7F"
+            BuildableName = "FocusTap.app"
+            BlueprintName = "FocusTap"
+            ReferencedContainer = "container:FocusTap.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
+   </ProfileAction>
+   <AnalyzeAction
+      buildConfiguration = "Debug">
+   </AnalyzeAction>
+   <ArchiveAction
+      buildConfiguration = "Release"
+      revealArchiveInOrganizer = "YES">
+   </ArchiveAction>
+</Scheme>

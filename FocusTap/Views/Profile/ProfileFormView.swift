@@ -36,6 +36,7 @@ struct ProfileFormView: View {
       var tempSelection = FamilyActivitySelection()
       tempSelection.applicationTokens = profile.appTokens
       tempSelection.categoryTokens = profile.categoryTokens
+      tempSelection.webDomainTokens = profile.webTokens
 
       _activitySelection = State(initialValue: tempSelection)
     } else {
@@ -87,6 +88,12 @@ struct ProfileFormView: View {
               Text(.blockedCategoriesBodyText)
               Spacer()
               Text("\(activitySelection.categoryTokens.count)")
+                .fontWeight(.bold)
+            }
+            HStack {
+              Text(.blockedWebsitesBodyText)
+              Spacer()
+              Text("\(activitySelection.webDomainTokens.count)")
                 .fontWeight(.bold)
             }
             Text(.appConfigurationDescription)
@@ -155,6 +162,7 @@ struct ProfileFormView: View {
         name: profileName,
         appTokens: activitySelection.applicationTokens,
         categoryTokens: activitySelection.categoryTokens,
+        webTokens: activitySelection.webDomainTokens,
         icon: profileIcon,
         requireMatchingTag: requireMatchingTag,
         requireTagToBlock: requireTagToBlock
@@ -164,6 +172,7 @@ struct ProfileFormView: View {
         name: profileName,
         appTokens: activitySelection.applicationTokens,
         categoryTokens: activitySelection.categoryTokens,
+        webTokens: activitySelection.webDomainTokens,
         icon: profileIcon,
         requireMatchingTag: requireMatchingTag,
         requireTagToBlock: requireTagToBlock
