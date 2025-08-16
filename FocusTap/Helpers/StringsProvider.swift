@@ -94,7 +94,8 @@ enum profileFormStrings: String {
   case deleteProfileButtonText = "Delete Profile"
 
   case selectAppsToBlockTitle = "Select Apps to Block"
-  case selectAppsToBlockDesctiption = "Choose which apps and app categories you want to block when this profile is active."
+  case selectAppsToBlockDescription = "Choose which apps and app categories you want to block when this profile is active."
+  case selectAppsToBlockDescription2 = "Select up to 50 apps and websites to block when this profile is active. Blocking more than 50 isn’t supported due to Apple’s API limits."
 }
 
 // MARK: - String Extensions
