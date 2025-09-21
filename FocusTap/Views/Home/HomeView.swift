@@ -27,13 +27,11 @@ struct HomeView: View {
   private enum AlertType: Identifiable {
     case wrongTag
     case notFocusTag
-    case createTag
 
     var id: Int {
       switch self {
       case .wrongTag: return 0
       case .notFocusTag: return 1
-      case .createTag: return 2
       }
     }
   }
@@ -50,12 +48,6 @@ struct HomeView: View {
       .toolbar {
         ToolbarItem(placement: .topBarLeading) {
           aboutButton
-        }
-
-        if !isBlocking {
-          ToolbarItem(placement: .topBarTrailing) {
-            createTagButton
-          }
         }
       }
       .alert(item: $alertType, content: alertContent)
@@ -135,15 +127,6 @@ struct HomeView: View {
     }
   }
 
-  private var createTagButton: some View {
-    Button(action: {
-      alertType = .createTag
-    }) {
-      Image(systemName: "plus")
-    }
-    .disabled(!NFCNDEFReaderSession.readingAvailable)
-  }
-
   private var backgroundColor: Color {
     isBlocking ? Color("BlockingBackground") : Color("NonBlockingBackground")
   }
@@ -162,13 +145,6 @@ struct HomeView: View {
         title: Text(.notFocusTag(.title)),
         message: Text(.notFocusTag(.message)),
         dismissButton: .default(Text(.ok))
-      )
-    case .createTag:
-      return Alert(
-        title: Text(.createTag(.title)),
-        message: Text(.createTag(.message)),
-        primaryButton: .default(Text(.create)) { createFocusTag() },
-        secondaryButton: .cancel(Text(.cancel))
       )
     }
   }
@@ -220,9 +196,5 @@ struct HomeView: View {
     } else {
       alertType = .notFocusTag
     }
-  }
-
-  private func createFocusTag() {
-    nfcReader.write(profileManager.currentProfile.tagPhrase)
   }
 }

@@ -7,38 +7,68 @@
 
 import CoreNFC
 
-class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
+class NFCReader: NSObject, ObservableObject {
   @Published private(set) var message = "Waiting for NFC tag..."
   private var session: NFCNDEFReaderSession?
   private var onScanComplete: ((String) -> Void)?
   private var isWriting = false
   private var textToWrite: String?
-  
+
   func scan(completion: @escaping (String) -> Void) {
     self.onScanComplete = completion
     self.isWriting = false
     startSession()
   }
-  
+
   func write(_ text: String) {
     self.textToWrite = text
     self.isWriting = true
     startSession()
   }
-  
+
   private func startSession() {
     guard NFCNDEFReaderSession.readingAvailable else {
       NSLog("NFC is not available on this device")
       return
     }
-    
+
     session = NFCNDEFReaderSession(delegate: self, queue: nil, invalidateAfterFirstRead: false)
-    session?.alertMessage = isWriting ? 
-    "Hold your iPhone near an NFC tag to write." : 
+    session?.alertMessage = isWriting ?
+    "Hold your iPhone near an NFC tag to write." :
     "Hold your iPhone near an NFC tag to read."
     session?.begin()
   }
-  
+}
+
+// MARK: - Delegate Conformance
+@available(iOS 13.0, *)
+extension NFCReader: NFCNDEFReaderSessionDelegate {
+
+  func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
+    if let readerError = error as? NFCReaderError,
+       readerError.code != .readerSessionInvalidationErrorFirstNDEFTagRead,
+       readerError.code != .readerSessionInvalidationErrorUserCanceled {
+      NSLog("Session invalidated with error: \(error.localizedDescription)")
+    }
+    self.session = nil
+  }
+
+  func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
+    guard !isWriting else { return }
+    messages.forEach { processMessage($0) }
+  }
+
+  func readerSession(_ session: NFCNDEFReaderSession, didDetect tags: [NFCNDEFTag]) {
+    if isWriting {
+      handleWriting(session: session, tags: tags)
+    } else {
+      handleReading(session: session, tags: tags)
+    }
+  }
+}
+
+// MARK: - Reading
+extension NFCReader {
   private func processMessage(_ message: NFCNDEFMessage) {
     for record in message.records {
       if let text = extractText(from: record) {
@@ -50,7 +80,7 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
       }
     }
   }
-  
+
   private func extractText(from record: NFCNDEFPayload) -> String? {
     switch record.typeNameFormat {
     case .nfcWellKnown:
@@ -66,39 +96,39 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
     }
     return nil
   }
-  
+
   private func handleReading(session: NFCNDEFReaderSession, tags: [NFCNDEFTag]) {
     guard let tag = tags.first, tags.count == 1 else {
       session.alertMessage = "More than 1 tag detected. Please try again with only one tag."
       session.invalidate()
       return
     }
-    
+
     connectAndRead(tag: tag, session: session)
   }
-  
+
   private func connectAndRead(tag: NFCNDEFTag, session: NFCNDEFReaderSession) {
     session.connect(to: tag) { [weak self] error in
       guard let self = self else { return }
-      
+
       if let error = error {
         session.invalidate(errorMessage: "Connection error: \(error.localizedDescription)")
         return
       }
-      
+
       self.queryAndReadTag(tag: tag, session: session)
     }
   }
-  
+
   private func queryAndReadTag(tag: NFCNDEFTag, session: NFCNDEFReaderSession) {
     tag.queryNDEFStatus { [weak self] status, _, error in
       guard let self = self else { return }
-      
+
       if let error = error {
         session.invalidate(errorMessage: "Failed to query tag: \(error.localizedDescription)")
         return
       }
-      
+
       switch status {
       case .notSupported:
         session.invalidate(errorMessage: "Tag is not NDEF compliant")
@@ -109,11 +139,11 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
       }
     }
   }
-  
+
   private func readTagContent(tag: NFCNDEFTag, session: NFCNDEFReaderSession) {
     tag.readNDEF { [weak self] message, error in
       guard let self = self else { return }
-      
+
       if let error = error {
         session.invalidate(errorMessage: "Read error: \(error.localizedDescription)")
       } else if let message = message {
@@ -125,7 +155,10 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
       }
     }
   }
-  
+}
+
+// MARK: - Writing
+extension NFCReader {
   private func handleWriting(session: NFCNDEFReaderSession, tags: [NFCNDEFTag]) {
     guard let tag = tags.first else {
       session.invalidate(errorMessage: "No tag detected")
@@ -179,8 +212,7 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
 
     let message = NFCNDEFMessage(records: [payload])
     
-    tag.writeNDEF(message) { [weak self] error in
-      guard let self = self else { return }
+    tag.writeNDEF(message) { error in
       
       if let error = error {
         session.invalidate(errorMessage: "Write failed: \(error.localizedDescription)")
@@ -189,27 +221,5 @@ class NFCReader: NSObject, ObservableObject, NFCNDEFReaderSessionDelegate {
         session.invalidate()
       }
     }
-  }
-  
-  func readerSession(_ session: NFCNDEFReaderSession, didDetectNDEFs messages: [NFCNDEFMessage]) {
-    guard !isWriting else { return }
-    messages.forEach { processMessage($0) }
-  }
-  
-  func readerSession(_ session: NFCNDEFReaderSession, didDetect tags: [NFCNDEFTag]) {
-    if isWriting {
-      handleWriting(session: session, tags: tags)
-    } else {
-      handleReading(session: session, tags: tags)
-    }
-  }
-  
-  func readerSession(_ session: NFCNDEFReaderSession, didInvalidateWithError error: Error) {
-    if let readerError = error as? NFCReaderError,
-       readerError.code != .readerSessionInvalidationErrorFirstNDEFTagRead,
-       readerError.code != .readerSessionInvalidationErrorUserCanceled {
-      NSLog("Session invalidated with error: \(error.localizedDescription)")
-    }
-    self.session = nil
   }
 }

@@ -190,14 +190,14 @@ struct Profile: Identifiable, Codable {
     name == "Default"
   }
 
-  init(name: String, appTokens: Set<ApplicationToken>, categoryTokens: Set<ActivityCategoryToken>, webTokens: Set<WebDomainToken>, icon: String = "bell.slash", requireMatchingTag: Bool = false, requireTagToBlock: Bool = true) {
+  init(name: String, appTokens: Set<ApplicationToken>, categoryTokens: Set<ActivityCategoryToken>, webTokens: Set<WebDomainToken>, icon: String = "bell.slash",tagPhrase: String = "focusTap://\(UUID().uuidString.prefix(8).uppercased())", requireMatchingTag: Bool = false, requireTagToBlock: Bool = true) {
     self.id = UUID()
     self.name = name
     self.appTokens = appTokens
     self.categoryTokens = categoryTokens
     self.webTokens = webTokens
     self.icon = icon
-    self.tagPhrase = "focusTap://" + UUID().uuidString.prefix(8).uppercased()
+    self.tagPhrase = tagPhrase
     self.requireMatchingTag = requireMatchingTag
     self.requireTagToBlock = requireTagToBlock
   }

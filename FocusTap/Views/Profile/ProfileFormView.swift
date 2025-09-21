@@ -14,18 +14,22 @@ struct ProfileFormView: View {
   @State private var profileName: String
   @State private var profileIcon: String
   @State private var showSymbolsPicker = false
+  @State private var showCreateTag = false
   @State private var activitySelection: FamilyActivitySelection = .init()
   @State private var showDeleteConfirmation = false
   @State private var requireMatchingTag: Bool
   @State private var requireTagToBlock: Bool
   @State private var isActivityPickerPresented = false
   let profile: Profile?
+  private var tagPhrase: String
   let onDismiss: () -> Void
+  private let nfcReader = NFCReader()
 
   init(profile: Profile? = nil, profileManager: ProfileManager, onDismiss: @escaping () -> Void) {
     self.profile = profile
     self.profileManager = profileManager
     self.onDismiss = onDismiss
+    self.tagPhrase = profile?.tagPhrase ?? "focusTap://\(UUID().uuidString.prefix(8).uppercased())"
 
     _profileName = State(initialValue: profile?.name ?? "")
     _profileIcon = State(initialValue: profile?.icon ?? "bell.slash")
@@ -121,6 +125,13 @@ struct ProfileFormView: View {
           }
         }
 
+        Section {
+          Button("Create Tag") {
+            showCreateTag = true
+          }
+          .foregroundStyle(.blue)
+        }
+
         if profile != nil {
           Section {
             Button(action: { showDeleteConfirmation = true }) {
@@ -132,9 +143,11 @@ struct ProfileFormView: View {
       }
       .navigationTitle(profile == nil ? String.profileForm(.addProfilePageHeader) : String.profileForm(.editProfilePageHeader))
       .navigationBarItems(
-        leading: Button(String.common(.cancel), action: onDismiss),
+        leading: Button(String.common(.cancel), action: onDismiss)
+          .foregroundStyle(.red),
         trailing: Button(String.common(.save), action: handleSave)
           .disabled(profileName.isEmpty)
+          .foregroundStyle(.blue)
       )
       .sheet(isPresented: $showSymbolsPicker) {
         SymbolsPicker(selection: $profileIcon, title: .profileForm(.chooseIconSheetHeader), autoDismiss: true)
@@ -150,6 +163,14 @@ struct ProfileFormView: View {
             onDismiss()
           },
           secondaryButton: .cancel()
+        )
+      }
+      .alert(isPresented: $showCreateTag) {
+        Alert(
+          title: Text(.createTag(.title)),
+          message: Text(.createTag(.message)),
+          primaryButton: .default(Text(.create)) { createFocusTag() },
+          secondaryButton: .cancel(Text(.cancel))
         )
       }
     }
@@ -174,11 +195,16 @@ struct ProfileFormView: View {
         categoryTokens: activitySelection.categoryTokens,
         webTokens: activitySelection.webDomainTokens,
         icon: profileIcon,
+        tagPhrase: tagPhrase,
         requireMatchingTag: requireMatchingTag,
         requireTagToBlock: requireTagToBlock
       )
       profileManager.addProfile(newProfile: newProfile)
     }
     onDismiss()
+  }
+
+  private func createFocusTag() {
+    nfcReader.write(tagPhrase)
   }
 }
