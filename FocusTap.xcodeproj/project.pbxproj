@@ -303,7 +303,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 08.15.25;
+				MARKETING_VERSION = 2025.11.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shutUpAndCode.FocusTap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -343,7 +343,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 08.15.25;
+				MARKETING_VERSION = 2025.11.8;
 				PRODUCT_BUNDLE_IDENTIFIER = com.shutUpAndCode.FocusTap;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

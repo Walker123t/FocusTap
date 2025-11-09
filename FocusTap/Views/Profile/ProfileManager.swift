@@ -126,7 +126,10 @@ class ProfileManager: ObservableObject {
     webTokens: Set<WebDomainToken>? = nil,
     icon: String? = nil,
     requireMatchingTag: Bool? = nil,
-    requireTagToBlock: Bool? = nil
+    requireTagToBlock: Bool? = nil,
+    allowTempUnblock: Bool? = nil,
+    tempUnblockTime: Int? = nil,
+    tempUnblockCount: Int? = nil
   ) {
     if let index = profiles.firstIndex(where: { $0.id == id }) {
       if let name = name {
@@ -149,6 +152,15 @@ class ProfileManager: ObservableObject {
       }
       if let requireTagToBlock = requireTagToBlock {
         profiles[index].requireTagToBlock = requireTagToBlock
+      }
+      if let allowTempUnblock = allowTempUnblock {
+        profiles[index].allowTempUnblock = allowTempUnblock
+      }
+      if let tempUnblockTime = tempUnblockTime {
+        profiles[index].tempUnblockTime = tempUnblockTime
+      }
+      if let tempUnblockCount = tempUnblockCount {
+        profiles[index].tempUnblockCount = tempUnblockCount
       }
       if currentProfileId == id {
         currentProfileId = profiles[index].id
@@ -175,7 +187,7 @@ class ProfileManager: ObservableObject {
   }
 }
 
-struct Profile: Identifiable, Codable {
+class Profile: ObservableObject, Identifiable, Codable {
   let id: UUID
   var name: String
   var appTokens: Set<ApplicationToken>
@@ -185,12 +197,25 @@ struct Profile: Identifiable, Codable {
   var tagPhrase: String
   var requireMatchingTag: Bool
   var requireTagToBlock: Bool
+  var allowTempUnblock: Bool
+  var tempUnblockTime: Int
+  var tempUnblockCount: Int
 
   var isDefault: Bool {
     name == "Default"
   }
 
-  init(name: String, appTokens: Set<ApplicationToken>, categoryTokens: Set<ActivityCategoryToken>, webTokens: Set<WebDomainToken>, icon: String = "bell.slash",tagPhrase: String = "focusTap://\(UUID().uuidString.prefix(8).uppercased())", requireMatchingTag: Bool = false, requireTagToBlock: Bool = true) {
+  init(name: String,
+       appTokens: Set<ApplicationToken>,
+       categoryTokens: Set<ActivityCategoryToken>,
+       webTokens: Set<WebDomainToken>,
+       icon: String = "bell.slash",
+       tagPhrase: String = "focusTap://\(UUID().uuidString.prefix(8).uppercased())",
+       requireMatchingTag: Bool = false,
+       requireTagToBlock: Bool = true,
+       allowTempUnblock: Bool = false,
+       tempUnblockTime: Int = 0,
+       tempUnblockCount: Int = 0) {
     self.id = UUID()
     self.name = name
     self.appTokens = appTokens
@@ -200,5 +225,8 @@ struct Profile: Identifiable, Codable {
     self.tagPhrase = tagPhrase
     self.requireMatchingTag = requireMatchingTag
     self.requireTagToBlock = requireTagToBlock
+    self.allowTempUnblock = allowTempUnblock
+    self.tempUnblockTime = tempUnblockTime
+    self.tempUnblockCount = tempUnblockCount
   }
 }

@@ -1,11 +1,11 @@
 [
   {
-    "title": "Added ability to block Websites",
-    "description": "Added the ability to block Websites and Website Categories."
+    "title": "New Feature - Temporary Unblocks",
+    "description": "This is a new feature that has been requested allot so I figured I would give the people what they want. However I am worried it will undermine the integrity of the app. Please provide me with feedback on how this affects your use of the app / screen time."
   },
   {
-    "title": "Currently working on a redesign of the application",
-    "description": "If any of you would like to help redesign the application and expand its functionality a bit please reachout to me through the support tab. Mainly looking for a designer but if anyone wants to help out from a technical perspective I'd love to talk."
+    "title": "Smalll Bug Fixes",
+    "description": "People were unable to write to tags."
   },
 ]
 

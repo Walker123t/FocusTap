@@ -14,16 +14,31 @@ struct ProfileFormView: View {
   @State private var profileName: String
   @State private var profileIcon: String
   @State private var showSymbolsPicker = false
-  @State private var showCreateTag = false
+  @State private var showAlert: ProfileAlertType? = nil
   @State private var activitySelection: FamilyActivitySelection = .init()
-  @State private var showDeleteConfirmation = false
   @State private var requireMatchingTag: Bool
   @State private var requireTagToBlock: Bool
   @State private var isActivityPickerPresented = false
+  @State private var allowTempUnblock: Bool = false
+  @State private var tempUnblockTime: Int = 0
+  @State private var tempUnblockCount: Int = 0
+
   let profile: Profile?
   private var tagPhrase: String
   let onDismiss: () -> Void
   private let nfcReader = NFCReader()
+
+  private enum ProfileAlertType: Identifiable {
+    case createTag
+    case deleteConfirmation
+
+    var id: String {
+      switch self {
+      case .createTag: return "createTag"
+      case .deleteConfirmation: return "deleteConfirmation"
+      }
+    }
+  }
 
   init(profile: Profile? = nil, profileManager: ProfileManager, onDismiss: @escaping () -> Void) {
     self.profile = profile
@@ -35,6 +50,9 @@ struct ProfileFormView: View {
     _profileIcon = State(initialValue: profile?.icon ?? "bell.slash")
     _requireMatchingTag = State(initialValue: profile?.requireMatchingTag ?? false)
     _requireTagToBlock = State(initialValue: profile?.requireTagToBlock ?? true)
+    _allowTempUnblock = State(initialValue: profile?.allowTempUnblock ?? false)
+    _tempUnblockTime = State(initialValue: profile?.tempUnblockTime ?? 0)
+    _tempUnblockCount = State(initialValue: profile?.tempUnblockCount ?? 0)
 
     if let profile = profile {
       var tempSelection = FamilyActivitySelection()
@@ -58,7 +76,7 @@ struct ProfileFormView: View {
               .foregroundColor(.secondary)
             TextField(.profileNamePlaceholder, text: $profileName)
           }
-
+          
           Button(action: { showSymbolsPicker = true }) {
             HStack {
               Image(systemName: profileIcon)
@@ -72,7 +90,7 @@ struct ProfileFormView: View {
             }
           }
         }
-
+        
         Section(header: Text(.appConfigurationSectionHeader)) {
           Button(action: { isActivityPickerPresented = true }) {
             Text(.configureBlockedAppsButtonText)
@@ -80,7 +98,7 @@ struct ProfileFormView: View {
           .sheet(isPresented: $isActivityPickerPresented) {
             FTFamilyActivityPicker(selection: $activitySelection)
           }
-
+          
           VStack(alignment: .leading, spacing: 8) {
             HStack {
               Text(.blockedAppsBodyText)
@@ -105,36 +123,52 @@ struct ProfileFormView: View {
               .foregroundColor(.secondary)
           }
         }
-
+        
         Section(header: Text(.securitySectionHeader)) {
           Toggle(.requireMatchingTagToggleText, isOn: $requireMatchingTag)
-
+          
           if requireMatchingTag {
             Text(.requireMatchingTagDescription)
               .font(.caption)
               .foregroundColor(.secondary)
           }
-
+          
           Toggle(.requireTagToBlockToggleText, isOn: $requireTagToBlock)
-
+          
           if !requireTagToBlock {
             Text(.requireTagToBlockDescription)
               .font(.caption)
               .fontWeight(.bold)
               .foregroundColor(.red)
           }
-        }
 
+          Toggle("Allow Temporary Unblock", isOn: $allowTempUnblock)
+
+          if allowTempUnblock {
+            Text("This will allow you to unblock a profile temporarily. This is not recommended to have enabled and may be removed in the future depending on feedback")
+              .font(.caption)
+              .foregroundColor(.secondary)
+
+            HStack {
+              Stepper("Minutes: \(tempUnblockTime)", value: $tempUnblockTime, in: 1...120)
+            }
+
+            HStack {
+              Stepper("Allowed per day: \(tempUnblockCount)", value: $tempUnblockCount, in: 1...120)
+            }
+          }
+        }
+        
         Section {
           Button("Create Tag") {
-            showCreateTag = true
+            showAlert = .createTag
           }
           .foregroundStyle(.blue)
         }
-
+        
         if profile != nil {
           Section {
-            Button(action: { showDeleteConfirmation = true }) {
+            Button(action: { showAlert = .deleteConfirmation }) {
               Text(.deleteProfileButtonText)
                 .foregroundColor(.red)
             }
@@ -152,26 +186,28 @@ struct ProfileFormView: View {
       .sheet(isPresented: $showSymbolsPicker) {
         SymbolsPicker(selection: $profileIcon, title: .profileForm(.chooseIconSheetHeader), autoDismiss: true)
       }
-      .alert(isPresented: $showDeleteConfirmation) {
-        Alert(
-          title: Text("Delete Profile"),
-          message: Text("Are you sure you want to delete this profile?"),
-          primaryButton: .destructive(Text("Delete")) {
-            if let profile = profile {
-              profileManager.deleteProfile(withId: profile.id)
-            }
-            onDismiss()
-          },
-          secondaryButton: .cancel()
-        )
-      }
-      .alert(isPresented: $showCreateTag) {
-        Alert(
-          title: Text(.createTag(.title)),
-          message: Text(.createTag(.message)),
-          primaryButton: .default(Text(.create)) { createFocusTag() },
-          secondaryButton: .cancel(Text(.cancel))
-        )
+      .alert(item: $showAlert) { alertType in
+        switch alertType {
+        case .createTag:
+          return Alert(
+            title: Text(.createTag(.title)),
+            message: Text(.createTag(.message)),
+            primaryButton: .default(Text(.create)) { createFocusTag() },
+            secondaryButton: .cancel(Text(.cancel))
+          )
+        case .deleteConfirmation:
+          return Alert(
+            title: Text("Delete Profile"),
+            message: Text("Are you sure you want to delete this profile?"),
+            primaryButton: .destructive(Text("Delete")) {
+              if let profile = profile {
+                profileManager.deleteProfile(withId: profile.id)
+              }
+              onDismiss()
+            },
+            secondaryButton: .cancel()
+          )
+        }
       }
     }
   }
@@ -186,7 +222,10 @@ struct ProfileFormView: View {
         webTokens: activitySelection.webDomainTokens,
         icon: profileIcon,
         requireMatchingTag: requireMatchingTag,
-        requireTagToBlock: requireTagToBlock
+        requireTagToBlock: requireTagToBlock,
+        allowTempUnblock: allowTempUnblock,
+        tempUnblockTime: tempUnblockTime,
+        tempUnblockCount: tempUnblockCount
       )
     } else {
       let newProfile = Profile(
@@ -197,7 +236,10 @@ struct ProfileFormView: View {
         icon: profileIcon,
         tagPhrase: tagPhrase,
         requireMatchingTag: requireMatchingTag,
-        requireTagToBlock: requireTagToBlock
+        requireTagToBlock: requireTagToBlock,
+        allowTempUnblock: allowTempUnblock,
+        tempUnblockTime: tempUnblockTime,
+        tempUnblockCount: tempUnblockCount
       )
       profileManager.addProfile(newProfile: newProfile)
     }

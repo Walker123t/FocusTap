@@ -5,11 +5,11 @@
 //  Created by Oz Tamir on 22/08/2024.
 //
 
-import SwiftUI
 import CoreNFC
-import SFSymbolsPicker
 import FamilyControls
 import ManagedSettings
+import SFSymbolsPicker
+import SwiftUI
 
 struct HomeView: View {
   // MARK: - Environment
@@ -21,7 +21,6 @@ struct HomeView: View {
   @State private var alertType: AlertType?
   @State private var showAboutPage: Bool = false
   @State private var showWhatsNewPage: Bool = false
-
 
   // MARK: - Alert Type
   private enum AlertType: Identifiable {
@@ -56,9 +55,15 @@ struct HomeView: View {
     .onOpenURL { url in
       switch isBlocking {
       case true:
-        handleUnblockingTag(payload: url.absoluteString, currentProfile: profileManager.currentProfile)
+        handleUnblockingTag(
+          payload: url.absoluteString,
+          currentProfile: profileManager.currentProfile
+        )
       case false:
-        handleBlockingTag(payload: url.absoluteString, currentProfile: profileManager.currentProfile)
+        handleBlockingTag(
+          payload: url.absoluteString,
+          currentProfile: profileManager.currentProfile
+        )
       }
     }
     .sheet(isPresented: $showAboutPage) { AboutView() }
@@ -75,8 +80,11 @@ struct HomeView: View {
       .background(backgroundColor)
     }
     .onAppear {
-      let currentAppVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "Unknown"
-      let previousAppVersion = UserDefaults.standard.string(forKey: "appVersion") ?? "NAN"
+      let currentAppVersion =
+        Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
+        ?? "Unknown"
+      let previousAppVersion =
+        UserDefaults.standard.string(forKey: "appVersion") ?? "NAN"
 
       if currentAppVersion != previousAppVersion {
         UserDefaults.standard.set(currentAppVersion, forKey: "appVersion")
@@ -92,11 +100,41 @@ struct HomeView: View {
       .frame(height: geometry.size.height / 2)
       .offset(y: isBlocking ? UIScreen.main.bounds.height : 0)
       .animation(.easeOut(duration: 1), value: isBlocking)
+      .disabled(appBlocker.unblockTime != nil && appBlocker.secondsLeft > 0)
+      .opacity(appBlocker.unblockTime != nil && appBlocker.secondsLeft > 0 ? 0.5 : 1.0)
   }
 
   // MARK: - UI Components
   private func blockOrUnblockButton(geometry: GeometryProxy) -> some View {
     VStack(spacing: 8) {
+      if appBlocker.unblockTime != nil, appBlocker.secondsLeft > 0 {
+        Text(
+          "Temporarily Unblocked: " + formatSecondsLeft(appBlocker.secondsLeft)
+        )
+        .font(.headline)
+        .foregroundColor(.blue)
+
+        Button("Tap to Reblock Now") {
+          reblockNow()
+        }
+        .buttonStyle(.borderedProminent)
+      }
+
+      if profileManager.currentProfile.allowTempUnblock && isBlocking && appBlocker.unblockTime == nil {
+        let tempUnblocksLeft = max(profileManager.currentProfile.tempUnblockCount - appBlocker.tempUnblocksUsedToday, 0)
+        if tempUnblocksLeft > 0 {
+          Button("Scan tag to Temp Unblock (\(tempUnblocksLeft) left today)") {
+            scanTagForTempUnblock()
+          }
+          .buttonStyle(.borderedProminent)
+        } else {
+          Button("No temp unblocks left today") {}
+            .buttonStyle(.bordered)
+            .disabled(true)
+            .foregroundColor(.gray)
+        }
+      }
+
       Text(isBlocking ? HomeStrings.tapToUnblock : HomeStrings.tapToBlock)
         .font(.caption)
         .opacity(0.75)
@@ -112,6 +150,7 @@ struct HomeView: View {
           .aspectRatio(contentMode: .fit)
           .frame(height: geometry.size.height / 3)
       }
+      .disabled(appBlocker.unblockTime != nil && appBlocker.secondsLeft > 0)
       .transition(.scale)
     }
     .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -149,11 +188,28 @@ struct HomeView: View {
     }
   }
 
+  // MARK: - Helper
+  private func formatSecondsLeft(_ seconds: Int) -> String {
+    let minutes = seconds / 60
+    let seconds = seconds % 60
+    return String(format: "%02d:%02d", minutes, seconds)
+  }
+
+  private func reblockNow() {
+    appBlocker.unblockTime = nil
+    appBlocker.secondsLeft = 0
+    if !isBlocking {
+      appBlocker.toggleBlocking(for: profileManager.currentProfile)
+    }
+  }
+
   // MARK: - NFC Tag Handling
   private func scanTag() {
-    if !isBlocking &&
-       !profileManager.currentProfile.requireTagToBlock {
-      handleBlockingTag(payload: "", currentProfile: profileManager.currentProfile)
+    if !isBlocking && !profileManager.currentProfile.requireTagToBlock {
+      handleBlockingTag(
+        payload: "",
+        currentProfile: profileManager.currentProfile
+      )
       return
     }
 
@@ -164,6 +220,21 @@ struct HomeView: View {
         handleUnblockingTag(payload: payload, currentProfile: currentProfile)
       } else {
         handleBlockingTag(payload: payload, currentProfile: currentProfile)
+      }
+    }
+  }
+
+  private func scanTagForTempUnblock() {
+    nfcReader.scan { payload in
+      let currentProfile = profileManager.currentProfile
+      if currentProfile.requireMatchingTag {
+        if payload == currentProfile.tagPhrase {
+          appBlocker.temporarilyUnblock(for: currentProfile)
+        } else {
+          alertType = .wrongTag
+        }
+      } else {
+        appBlocker.temporarilyUnblock(for: currentProfile)
       }
     }
   }
@@ -187,7 +258,9 @@ struct HomeView: View {
   }
 
   private func handleBlockingTag(payload: String, currentProfile: Profile) {
-    if let matchingProfile = profileManager.profiles.first(where: { $0.tagPhrase == payload }) {
+    if let matchingProfile = profileManager.profiles.first(where: {
+      $0.tagPhrase == payload
+    }) {
       profileManager.setCurrentProfile(id: matchingProfile.id)
       NSLog(.logs(.switchingProfile), matchingProfile.name)
       appBlocker.toggleBlocking(for: matchingProfile)
@@ -198,3 +271,4 @@ struct HomeView: View {
     }
   }
 }
+
